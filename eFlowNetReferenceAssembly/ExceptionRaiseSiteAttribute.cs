@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DotNetFlow.Fody
+namespace eFlowNET.Fody
 {
     /// <summary>
     /// If an <see cref="Exception"/> occurs in the applied method then flow it explicit.

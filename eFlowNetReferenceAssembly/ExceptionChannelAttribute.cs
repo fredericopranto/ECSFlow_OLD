@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DotNetFlow.Fody
+namespace eFlowNET.Fody
 {
     /// <summary>
     /// An explicit exception channel (channel, for short) is an abstract duct through which exceptions 

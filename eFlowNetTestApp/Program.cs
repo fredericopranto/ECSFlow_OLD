@@ -21,8 +21,6 @@ namespace TestApp
 
             newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 
-            newAssemblyPath = WeaverHelper.Weave(assemblyPath);
-
             assembly = Assembly.LoadFile(newAssemblyPath);
         }
     }

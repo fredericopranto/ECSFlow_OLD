@@ -3,10 +3,12 @@ using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
-using System;
 
-namespace DotNetFlow.Fody
+namespace eFlowNET.Fody
 {
+    /// <summary>
+    /// Main exception processor
+    /// </summary>
     public class OnExceptionProcessor
     {
         public MethodDefinition Method;
@@ -16,6 +18,9 @@ namespace DotNetFlow.Fody
         AttributeFinder attributeFinder;
         ExceptionDefinitionFinder exceptionFinder;
 
+        /// <summary>
+        /// Process the current method in case of match the configuration in GlobalExceptionDefinitions
+        /// </summary>
         public void Process()
         {
             exceptionFinder = new ExceptionDefinitionFinder(Method);
@@ -27,9 +32,13 @@ namespace DotNetFlow.Fody
             ContinueProcessing(exceptionFinder);
         }
 
+        /// <summary>
+        /// In case of having Raising Site, the current method is surrounded by a Try/Catch block
+        /// </summary>
+        /// <param name="exceptionFinder"></param>
         void ContinueProcessing(ExceptionDefinitionFinder exceptionFinder)
         {
-            //InjectAttributes(exceptionFinder);
+            InjectAttributes(exceptionFinder);
 
             attributeFinder = new AttributeFinder(Method);
             if (attributeFinder.Raising)
@@ -38,19 +47,21 @@ namespace DotNetFlow.Fody
             }
         }
 
+        /// <summary>
+        /// Inject custom attributes in current method
+        /// </summary>
+        /// <param name="exceptionFinder"></param>
         void InjectAttributes(ExceptionDefinitionFinder exceptionFinder)
         {
             var customAttributes = exceptionFinder.CustomAttributes;
             foreach (CustomAttribute item in customAttributes)
             {
-                Method.Module.ImportReference(item.GetType());
-                Method.Module.ImportReference(typeof(System.Runtime.CompilerServices.ExtensionAttribute));
                 Method.CustomAttributes.Add(item);
             }
         }
 
         /// <summary>
-        ///  Surround Method Body with Try/Catch
+        ///  Surround current Method Body with Try/Catch
         /// </summary>
         void SurroundBody()
         {
@@ -92,6 +103,10 @@ namespace DotNetFlow.Fody
             body.OptimizeMacros();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         Instruction GetMethodBodyFirstInstruction()
         {
             if (Method.IsConstructor)
@@ -101,6 +116,11 @@ namespace DotNetFlow.Fody
             return body.Instructions.First();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catchBlockLeaveInstructions"></param>
+        /// <returns></returns>
         IEnumerable<Instruction> GetCatchInstructions(Instruction catchBlockLeaveInstructions)
         {
             yield return Instruction.Create(OpCodes.Pop);

@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("DotNetFlow")]
-[assembly: AssemblyDescription("DotNetFlow")]
+[assembly: AssemblyTitle("eFlowNET")]
+[assembly: AssemblyDescription("eFlowNET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("UFRN")]
-[assembly: AssemblyProduct("DotNetFlow")]
+[assembly: AssemblyProduct("eFlowNET")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

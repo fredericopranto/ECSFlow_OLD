@@ -4,7 +4,7 @@ using System;
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace DotNetFlow.Fody
+namespace eFlowNET.Fody
 {
     static class GlobalExceptionDefinitions
     {

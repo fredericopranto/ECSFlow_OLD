@@ -1,28 +1,28 @@
 ﻿using Mono.Cecil;
 
-namespace DotNetFlow.Fody
+namespace eFlowNET.Fody
 {
     public class AttributeFinder
     {
         public AttributeFinder(MethodDefinition method)
         {
             var customAttributes = method.CustomAttributes;
-            if (customAttributes.ContainsAttribute("DotNetFlow.Fody.ExceptionRaiseSiteAttribute"))
+            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionRaiseSiteAttribute"))
             {
                 Raising = true;
             }
 
-            if (customAttributes.ContainsAttribute("DotNetFlow.Fody.ExceptionChannelAttribute"))
+            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionChannelAttribute"))
             {
                 Channel = true;
             }
 
-            if (customAttributes.ContainsAttribute("DotNetFlow.Fody.ExceptionHandlerAttribute"))
+            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionHandlerAttribute"))
             {
                 Handler = true;
             }
 
-            if (customAttributes.ContainsAttribute("DotNetFlow.Fody.ExceptionInterfaceAttribute"))
+            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionInterfaceAttribute"))
             {
                 Interface = true;
             }
