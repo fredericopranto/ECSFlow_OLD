@@ -1,0 +1,286 @@
+<list>
+  <assembly>
+    <name>AssemblyToProcess</name>
+    <version>1.0.0.0</version>
+    <createdAt>2015-11-13 02:31:12.273 UTC</createdAt>
+    <language>C#.NET</language>
+    <analyzer>false</analyzer>
+    <exceptions />
+    <types>
+      <type>
+        <name>Song</name>
+        <fullName>AssemblyToProcess.Model.Song</fullName>
+        <kind>class</kind>
+        <methods>
+          <method>
+            <name>Void Song..ctor(String)</name>
+            <fullName>System.Void AssemblyToProcess.Model.Song..ctor(System.String)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+        </methods>
+      </type>
+      <type>
+        <name>JukeboxController</name>
+        <fullName>AssemblyToProcess.Controller.JukeboxController</fullName>
+        <kind>class</kind>
+        <methods>
+          <method>
+            <name>Void JukeboxController..ctor()</name>
+            <fullName>System.Void AssemblyToProcess.Controller.JukeboxController..ctor()</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>Void JukeboxController.PlayMusic(JukeboxPlayer)</name>
+            <fullName>System.Void AssemblyToProcess.Controller.JukeboxController.PlayMusic(AssemblyToProcess.View.JukeboxPlayer)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>Void JukeboxController.SelectMusic(JukeboxPlayer, Song)</name>
+            <fullName>System.Void AssemblyToProcess.Controller.JukeboxController.SelectMusic(AssemblyToProcess.View.JukeboxPlayer, AssemblyToProcess.Model.Song)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>String JukeboxController.ShowLyrics(Song)</name>
+            <fullName>System.String AssemblyToProcess.Controller.JukeboxController.ShowLyrics(AssemblyToProcess.Model.Song)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>String JukeboxController.ShowUpperLyrics(Song)</name>
+            <fullName>System.String AssemblyToProcess.Controller.JukeboxController.ShowUpperLyrics(AssemblyToProcess.Model.Song)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>Void JukeboxController.TurnOnJukebox(JukeboxPlayer)</name>
+            <fullName>System.Void AssemblyToProcess.Controller.JukeboxController.TurnOnJukebox(AssemblyToProcess.View.JukeboxPlayer)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+        </methods>
+      </type>
+      <type>
+        <name>JukeboxPlayer</name>
+        <fullName>AssemblyToProcess.View.JukeboxPlayer</fullName>
+        <kind>class</kind>
+        <methods>
+          <method>
+            <name>Void JukeboxPlayer..ctor()</name>
+            <fullName>System.Void AssemblyToProcess.View.JukeboxPlayer..ctor()</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>Void JukeboxPlayer.Main(String[])</name>
+            <fullName>System.Void AssemblyToProcess.View.JukeboxPlayer.Main(System.String[])</fullName>
+            <visibility>private</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+        </methods>
+      </type>
+      <type>
+        <name>JukeboxHelper</name>
+        <fullName>AssemblyToProcess.Util.JukeboxHelper</fullName>
+        <kind>class</kind>
+        <methods>
+          <method>
+            <name>Void JukeboxHelper..ctor()</name>
+            <fullName>System.Void AssemblyToProcess.Util.JukeboxHelper..ctor()</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>String JukeboxHelper.ToUpperLyric(String)</name>
+            <fullName>System.String AssemblyToProcess.Util.JukeboxHelper.ToUpperLyric(System.String)</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+        </methods>
+      </type>
+    </types>
+    <methodCalls>
+      <methodCall>
+        <methodSource>
+          <name>String JukeboxController.ShowUpperLyrics(Song)</name>
+          <fullName>System.String AssemblyToProcess.Controller.JukeboxController.ShowUpperLyrics(AssemblyToProcess.Model.Song)</fullName>
+          <visibility>public</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodSource>
+        <methodTarget>
+          <name>String JukeboxHelper.ToUpperLyric(String)</name>
+          <fullName>System.String AssemblyToProcess.Util.JukeboxHelper.ToUpperLyric(System.String)</fullName>
+          <visibility>public</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodTarget>
+        <offSet>7</offSet>
+        <order>4</order>
+      </methodCall>
+      <methodCall>
+        <methodSource>
+          <name>Void JukeboxPlayer.Main(String[])</name>
+          <fullName>System.Void AssemblyToProcess.View.JukeboxPlayer.Main(System.String[])</fullName>
+          <visibility>private</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodSource>
+        <methodTarget>
+          <name>Void JukeboxController.TurnOnJukebox(JukeboxPlayer)</name>
+          <fullName>System.Void AssemblyToProcess.Controller.JukeboxController.TurnOnJukebox(AssemblyToProcess.View.JukeboxPlayer)</fullName>
+          <visibility>public</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodTarget>
+        <offSet>15</offSet>
+        <order>7</order>
+      </methodCall>
+      <methodCall>
+        <methodSource>
+          <name>Void JukeboxPlayer.Main(String[])</name>
+          <fullName>System.Void AssemblyToProcess.View.JukeboxPlayer.Main(System.String[])</fullName>
+          <visibility>private</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodSource>
+        <methodTarget>
+          <name>Void JukeboxController.SelectMusic(JukeboxPlayer, Song)</name>
+          <fullName>System.Void AssemblyToProcess.Controller.JukeboxController.SelectMusic(AssemblyToProcess.View.JukeboxPlayer, AssemblyToProcess.Model.Song)</fullName>
+          <visibility>public</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodTarget>
+        <offSet>33</offSet>
+        <order>12</order>
+      </methodCall>
+      <methodCall>
+        <methodSource>
+          <name>Void JukeboxPlayer.Main(String[])</name>
+          <fullName>System.Void AssemblyToProcess.View.JukeboxPlayer.Main(System.String[])</fullName>
+          <visibility>private</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodSource>
+        <methodTarget>
+          <name>Void JukeboxController.PlayMusic(JukeboxPlayer)</name>
+          <fullName>System.Void AssemblyToProcess.Controller.JukeboxController.PlayMusic(AssemblyToProcess.View.JukeboxPlayer)</fullName>
+          <visibility>public</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodTarget>
+        <offSet>41</offSet>
+        <order>15</order>
+      </methodCall>
+    </methodCalls>
+  </assembly>
+</list>
