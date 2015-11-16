@@ -195,6 +195,17 @@ namespace eFlowNET.Fody
             return containsAttribute != null;
         }
 
+        public static bool ContainsAttribute(this Collection<CustomAttribute> attributes, string attributeName, ref CustomAttribute customAttribute)
+        {
+            var containsAttribute = attributes.FirstOrDefault(x => x.AttributeType.FullName == attributeName);
+            if (containsAttribute != null)
+            {
+                customAttribute = containsAttribute;
+            }
+
+            return ContainsAttribute(attributes, attributeName);
+        }
+
         public static MethodDefinition FindMethod(this TypeDefinition typeDefinition, string method, params string[] paramTypes)
         {
             var firstOrDefault = typeDefinition.Methods

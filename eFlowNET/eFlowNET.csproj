@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eFlowAttributes.cs" />
     <Compile Include="ExceptionDefinitionFinder.cs" />
     <Compile Include="AttributeFinder.cs" />
     <Compile Include="CecilExtensions.cs" />

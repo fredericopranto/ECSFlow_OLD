@@ -43,7 +43,7 @@ namespace eFlowNET.Fody
             attributeFinder = new AttributeFinder(Method);
             if (attributeFinder.Raising)
             {
-                SurroundBody();
+                SurroundBody(attributeFinder);
             }
         }
 
@@ -63,7 +63,7 @@ namespace eFlowNET.Fody
         /// <summary>
         ///  Surround current Method Body with Try/Catch
         /// </summary>
-        void SurroundBody()
+        void SurroundBody(AttributeFinder attributeFinder)
         {
             body = Method.Body;
 
@@ -88,16 +88,24 @@ namespace eFlowNET.Fody
 
             ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
 
-            var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
+            if(attributeFinder.Exceptions.Count == 0)
+                attributeFinder.Exceptions.Add(ModuleWeaver.ExceptionType);
+            else
             {
-                CatchType = ModuleWeaver.ExceptionType,
-                TryStart = methodBodyFirstInstruction,
-                TryEnd = tryBlockLeaveInstructions.Next,
-                HandlerStart = catchBlockInstructions.First(),
-                HandlerEnd = catchBlockInstructions.Last().Next
-            };
+                foreach (var exceptionType in attributeFinder.Exceptions)
+                {
+                    var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
+                    {
+                        CatchType = exceptionType,
+                        TryStart = methodBodyFirstInstruction,
+                        TryEnd = tryBlockLeaveInstructions.Next,
+                        HandlerStart = catchBlockInstructions.First(),
+                        HandlerEnd = catchBlockInstructions.Last().Next
+                    };
 
-            body.ExceptionHandlers.Add(handler);
+                    body.ExceptionHandlers.Add(handler);
+                }
+            }
 
             body.InitLocals = true;
             body.OptimizeMacros();
