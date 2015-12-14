@@ -13,10 +13,10 @@ public static class WeaverHelper
         File.Copy(assemblyPath, newAssembly, true);
         File.Copy(oldPdb, newPdb, true);
 
-        var assemblyResolver = new MockAssemblyResolver
-        {
-            Directory = Path.GetDirectoryName(assemblyPath)
-        };
+        //var assemblyResolver = new MockAssemblyResolver
+        //{
+        //    Directory = Path.GetDirectoryName(assemblyPath)
+        //};
 
         using (var symbolStream = File.OpenRead(newPdb))
         {
@@ -31,7 +31,7 @@ public static class WeaverHelper
             var weavingTask = new ModuleWeaver
             {
                 ModuleDefinition = moduleDefinition,
-                AssemblyResolver = assemblyResolver
+                AssemblyResolver = new DefaultAssemblyResolver()
             };
             
             weavingTask.Execute();

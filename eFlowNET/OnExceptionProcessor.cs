@@ -3,6 +3,7 @@ using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
+using System;
 
 namespace eFlowNET.Fody
 {
@@ -15,6 +16,7 @@ namespace eFlowNET.Fody
         public ModuleWeaver ModuleWeaver;
         MethodBody body;
 
+        MethodFinder methodFinder;
         AttributeFinder attributeFinder;
         ExceptionDefinitionFinder exceptionFinder;
 
@@ -82,18 +84,41 @@ namespace eFlowNET.Fody
 
             var methodBodyFirstInstruction = GetMethodBodyFirstInstruction();
 
-            var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions).ToList();
-
-            ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
-
-            ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
-
-            if(attributeFinder.Exceptions.Count == 0)
+            if (attributeFinder.Exceptions.Count == 0)
                 attributeFinder.Exceptions.Add(ModuleWeaver.ExceptionType);
-            else
+
+            foreach (var exceptionType in attributeFinder.Exceptions)
             {
-                foreach (var exceptionType in attributeFinder.Exceptions)
+                // Find the proper handler by exception type
+                methodFinder = new MethodFinder(exceptionType);
+                
+                if (methodFinder.Found) // Surround with Try/Catch and Inject the proper handler
                 {
+                    var writeLineRef = body.Method.Module.Assembly.MainModule.ImportReference(exceptionType); 
+
+                    var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, methodFinder.Method).ToList();
+                    ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
+                    ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
+
+                    var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
+                    {
+                        CatchType = exceptionType,
+                        TryStart = methodBodyFirstInstruction,
+                        TryEnd = tryBlockLeaveInstructions.Next,
+                        HandlerStart = catchBlockInstructions.First(),
+                        HandlerEnd = catchBlockInstructions.Last().Next
+                    };
+
+                    body.ExceptionHandlers.Add(handler);
+                }
+                else // Surround with Try/Catch and Inject the throws handler
+                {
+                    //TODO: Inject throws statement
+                    var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions).ToList();
+                    ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
+                    ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
+
+
                     var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
                     {
                         CatchType = exceptionType,
@@ -129,10 +154,21 @@ namespace eFlowNET.Fody
         /// </summary>
         /// <param name="catchBlockLeaveInstructions"></param>
         /// <returns></returns>
+        IEnumerable<Instruction> GetCatchInstructions(Instruction catchBlockLeaveInstructions, MethodDefinition def)
+        {
+            yield return Instruction.Create(OpCodes.Call, def);
+            yield return Instruction.Create(OpCodes.Nop);
+            yield return catchBlockLeaveInstructions;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catchBlockLeaveInstructions"></param>
+        /// <returns></returns>
         IEnumerable<Instruction> GetCatchInstructions(Instruction catchBlockLeaveInstructions)
         {
             yield return Instruction.Create(OpCodes.Pop);
-            yield return Instruction.Create(OpCodes.Nop);
             yield return Instruction.Create(OpCodes.Nop);
             yield return catchBlockLeaveInstructions;
         }

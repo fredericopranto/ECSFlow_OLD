@@ -46,11 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\JukeboxController.cs" />
-    <Compile Include="Model\Song.cs" />
+    <Compile Include="AlbumData.cs" />
+    <Compile Include="Converted.cs" />
+    <Compile Include="IImageData.cs" />
+    <Compile Include="ImageAlbumData.cs" />
+    <Compile Include="ImageData.cs" />
+    <Compile Include="ImageMediaAccessor.cs" />
+    <Compile Include="ImageUtil.cs" />
+    <Compile Include="InvalidImageDataException.cs" />
+    <Compile Include="MediaAccessor.cs" />
+    <Compile Include="MediaData.cs" />
+    <Compile Include="MediaUtil.cs" />
+    <Compile Include="RecordStoreException.cs" />
+    <Compile Include="PersistenceMechanismException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\JukeboxHelper.cs" />
-    <Compile Include="View\JukeboxPlayer.cs" />
+    <Compile Include="StringHelperClass.cs" />
+    <Compile Include="UnavailablePhotoAlbumException.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
