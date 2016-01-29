@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestApp
 {
@@ -17,7 +13,7 @@ namespace TestApp
             //String command = @"C:\Doit.bat";
             //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
 
-            ExecuteILRepackMerge();
+            //ExecuteILRepackMerge();
 
             Assembly assembly;
             string newAssemblyPath;

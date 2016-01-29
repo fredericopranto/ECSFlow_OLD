@@ -65,6 +65,7 @@
     <Compile Include="GlobalExceptionInfo.cs" />
     <Compile Include="eFlowAttributes.cs" />
     <Compile Include="ExceptionChannelAttribute.cs" />
+    <Compile Include="HandlerDelegate.cs" />
     <Compile Include="MethodFinder.cs" />
     <Compile Include="ExceptionDefinitionFinder.cs" />
     <Compile Include="AttributeFinder.cs" />
@@ -72,7 +73,6 @@
     <Compile Include="ExceptionHandlerAttribute.cs" />
     <Compile Include="ExceptionInterfaceAttribute.cs" />
     <Compile Include="ExceptionRaiseSiteAttribute.cs" />
-    <Compile Include="GlobalExceptionImpl.cs" />
     <Compile Include="MockAssemblyResolver.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="MyAssemblyResolver.cs" />

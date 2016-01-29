@@ -1,6 +1,4 @@
-﻿
-
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using Mono.Collections.Generic;
 using System.Linq;
 
@@ -11,15 +9,17 @@ namespace eFlowNET.Fody
         public ExceptionDefinitionFinder(MethodDefinition method)
         {
             ModuleDefinition module = ModuleDefinition.ReadModule("eFlowNET.dll");
-            TypeDefinition type = module.Types.First(t => t.FullName == "eFlowNET.Fody.GlobalExceptionDefinitions");
-            
-            foreach (var item in type.Methods)
+            //TypeDefinition type = module.Types.First(t => t.FullName == "eFlowNET.Fody.GlobalExceptionInfo");
+            System.Collections.Generic.IEnumerable<CustomAttribute> rsites =
+                module.Assembly.CustomAttributes.Where(t => t.AttributeType.Name.Equals("ExceptionRaiseSiteAttribute"));
+
+            foreach (var item in rsites)
             {
-                if (item.Name.Equals(method.Name))
-                {
-                    Inpect = true;
-                    CustomAttributes = new Collection<CustomAttribute>(item.CustomAttributes.ToList().FindAll(x => x.AttributeType.Name.Contains("Exception")));
-                }
+                //if (item.ConstructorArguments.First(t =>  t.Value.Equals(method.Name)))
+                //{
+                //    Inpect = true;
+                //    CustomAttributes = new Collection<CustomAttribute>(item.CustomAttributes.ToList().FindAll(x => x.AttributeType.Name.Contains("Exception")));
+                //}
                 
                 break;
             }

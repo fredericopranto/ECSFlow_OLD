@@ -15,26 +15,19 @@ namespace eFlowNET.Fody
     public class ExceptionInterfaceAttribute : Attribute
     {
         public InterfaceScope scope;
-        public Type exception;
+        public string exception;
         public string alias;
         public string channel;
         public string raiseSiteName;
         public bool isNamespace;
 
-        public ExceptionInterfaceAttribute()
-        {
-            
-        }
-
-        public ExceptionInterfaceAttribute(string channel, string raiseSiteName, bool isNamespace, Type exception = null)
+        public ExceptionInterfaceAttribute(string channel, string raiseSiteName, bool isNamespace, string exception = null)
         {
             this.exception = exception;
             this.channel = channel;
             this.raiseSiteName = raiseSiteName;
             this.isNamespace = isNamespace;
         }
-
-        
     }
 
     public enum InterfaceScope

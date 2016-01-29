@@ -12,20 +12,36 @@ namespace eFlowNET.Fody
     {
         public ExceptionRaiseSiteAttribute RaiseSite;
         public string channelName;
-        public string raiseSiteName;
+        public string[] raiseSiteNameList;
         public bool isSubsumption;
         public string[] exceptionList;
 
-        public ExceptionChannelAttribute(string channelName, string[] exceptionList, bool isSubsumption, string raiseSiteName)
+        public ExceptionChannelAttribute(string[] exceptionList)
+        {
+            this.exceptionList = exceptionList;
+        }
+
+        public ExceptionChannelAttribute(string[] exceptionList, bool isSubsumption, string[] raiseSiteNameList)
+        {
+            this.raiseSiteNameList = raiseSiteNameList;
+            this.isSubsumption = isSubsumption;
+            this.exceptionList = exceptionList;
+        }
+
+        public ExceptionChannelAttribute(string channelName, string[] exceptionList, bool isSubsumption, string[] raiseSiteNameList)
         {
             this.channelName = channelName;
-            this.raiseSiteName = raiseSiteName;
+            this.raiseSiteNameList = raiseSiteNameList;
             this.isSubsumption = isSubsumption;
             this.exceptionList = exceptionList;
         }
 
         public ExceptionChannelAttribute(string channelName, string exception, bool isSubsumption, string raiseSiteName)
-            : this(channelName, new string[]{ exception }, isSubsumption, raiseSiteName)
+            : this(channelName, new string[]{ exception }, isSubsumption, new string[] { raiseSiteName })
+        { }
+
+        public ExceptionChannelAttribute(string channelName, string[] exceptionList, bool isSubsumption, string raiseSiteName)
+            : this(channelName, exceptionList, isSubsumption, new string[] { raiseSiteName })
         { }
     }
 }
