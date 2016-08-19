@@ -8,6 +8,12 @@ namespace eFlowNET.Fody
 {
     public class AttributeFinder
     {
+
+        public AttributeFinder()
+        {
+            Exceptions = new List<TypeReference>();
+        }
+
         public IAssemblyResolver AssemblyResolver { get; set; }
 
         public AttributeFinder(MethodDefinition method)
@@ -79,6 +85,7 @@ namespace eFlowNET.Fody
         public bool Channel;
         public bool Handler;
         public bool Interface;
-        public List<TypeReference> Exceptions { get; set; } = new List<TypeReference>();
+
+        public List<TypeReference> Exceptions { get ; set; }
     }
 }
