@@ -5,11 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CciExplorer.CodeModel", "CciExplorer.CodeModel\CciExplorer.CodeModel.csproj", "{1CD65680-A932-463C-BAB8-630D7537553B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFlowDriverNET", "eFlowDriverNET\eFlowDriverNET.csproj", "{5EB94942-D7D5-4906-B027-CCD697DF2243}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowDriverNET", "eFlowDriverNET\ECSFlowDriverNET.csproj", "{5EB94942-D7D5-4906-B027-CCD697DF2243}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFlowNET", "eFlowNET\eFlowNET.csproj", "{F91AE2E6-1682-478D-8F7D-DB33F98167EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowNET", "eFlowNET\ECSFlowNET.csproj", "{F91AE2E6-1682-478D-8F7D-DB33F98167EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab", "Lab\Lab.csproj", "{29618238-72D2-451A-B20F-D9435910C3C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs", "Lab\Labs.csproj", "{29618238-72D2-451A-B20F-D9435910C3C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DACB1A6A-7185-438E-B52B-9D28489AC3BC}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,15 +30,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JMSoftware.VersionChecking"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FodyAddin", "FodyAddin", "{04E88053-968C-4A5B-814F-062DF5B5E61D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyToProcess", "BasicFodyAddin\AssemblyToProcess\AssemblyToProcess.csproj", "{E97E649F-B703-47E3-B18A-0871D3498742}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowTests", "UnitTestProject\ECSFlowTests.csproj", "{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicFodyAddin", "BasicFodyAddin\BasicFodyAddin\BasicFodyAddin.csproj", "{C3578A7B-09A6-4444-9383-0DEAFA4958BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyToProcess", "ECSFlowAddin\AssemblyToProcess\AssemblyToProcess.csproj", "{E97E649F-B703-47E3-B18A-0871D3498742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget", "BasicFodyAddin\NuGet\Nuget.csproj", "{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowAddin", "ECSFlowAddin\ECSFlowAddin\ECSFlowAddin.csproj", "{C3578A7B-09A6-4444-9383-0DEAFA4958BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget", "ECSFlowAddin\NuGet\Nuget.csproj", "{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D327EC9C-DAA2-4454-A63D-7A09F3554578}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "ECSFlowAddin\Tests\Tests.csproj", "{D327EC9C-DAA2-4454-A63D-7A09F3554578}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +157,18 @@ Global
 		{4A100A8B-4510-42AF-901E-A72D840D2A91}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4A100A8B-4510-42AF-901E-A72D840D2A91}.Release|x86.ActiveCfg = Release|Any CPU
 		{4A100A8B-4510-42AF-901E-A72D840D2A91}.Release|x86.Build.0 = Release|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|x86.Build.0 = Debug|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|x86.ActiveCfg = Release|Any CPU
+		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|x86.Build.0 = Release|Any CPU
 		{E97E649F-B703-47E3-B18A-0871D3498742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E97E649F-B703-47E3-B18A-0871D3498742}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E97E649F-B703-47E3-B18A-0871D3498742}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -193,18 +205,6 @@ Global
 		{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2}.Release|x86.ActiveCfg = Release|Any CPU
 		{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2}.Release|x86.Build.0 = Release|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Debug|x86.Build.0 = Debug|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|x86.ActiveCfg = Release|Any CPU
-		{9E416E1B-D3D5-4EA4-A2E3-0E5B571E1BAD}.Release|x86.Build.0 = Release|Any CPU
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

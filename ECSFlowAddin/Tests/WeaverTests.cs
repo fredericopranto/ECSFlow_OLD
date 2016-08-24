@@ -2,16 +2,16 @@
 using System.IO;
 using System.Reflection;
 using Mono.Cecil;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-[TestFixture]
+[TestClass]
 public class WeaverTests
 {
     Assembly assembly;
     string newAssemblyPath;
     string assemblyPath;
 
-    [TestFixtureSetUp]
+    [TestInitialize]
     public void Setup()
     {
         var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcess\AssemblyToProcess.csproj"));
@@ -35,17 +35,17 @@ public class WeaverTests
         assembly = Assembly.LoadFile(newAssemblyPath);
     }
 
-    [Test]
+    [TestMethod]
     public void ValidateHelloWorldIsInjected()
     {
         var type = assembly.GetType("Hello");
-        var instance = (dynamic)Activator.CreateInstance(type);
+        var instance = (dynamic) Activator.CreateInstance(type);
 
         Assert.AreEqual("Hello World", instance.World());
     }
 
 #if(DEBUG)
-    [Test]
+    [TestMethod]
     public void PeVerify()
     {
         Verifier.Verify(assemblyPath,newAssemblyPath);

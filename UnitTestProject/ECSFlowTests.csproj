@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\eFlowNET\eFlowNET.csproj">
+    <ProjectReference Include="..\eFlowNET\ECSFlowNET.csproj">
       <Project>{f91ae2e6-1682-478d-8f7d-db33f98167ea}</Project>
-      <Name>eFlowNET</Name>
+      <Name>ECSFlowNET</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

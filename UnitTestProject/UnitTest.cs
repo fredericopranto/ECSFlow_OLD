@@ -9,8 +9,7 @@ namespace UnitTestProject
     [TestClass]
     public class UnitTest
     {
-        [TestMethod]
-        //Setup
+        [TestInitialize]
         public void TestMethod()
         {
             //String command = @"C:\Doit.bat";
