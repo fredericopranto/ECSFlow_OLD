@@ -11,11 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowNET", "eFlowNET\ECSF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs", "Lab\Labs.csproj", "{29618238-72D2-451A-B20F-D9435910C3C3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DACB1A6A-7185-438E-B52B-9D28489AC3BC}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AssemblyToProcess", "AssemblyToProcess", "{D73B019D-5CC9-4375-AB5E-2BB7A8CDDEAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ascgen2", "Ascgen2NoTry\Ascgen2\Ascgen2.csproj", "{770F6D41-B085-4E51-935E-11C09E28F156}"
