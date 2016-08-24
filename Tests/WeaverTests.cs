@@ -38,7 +38,7 @@ public class WeaverTests
     public void ValidateHelloWorldIsInjected()
     {
         var type = assembly.GetType("Hello");
-        var instance = (dynamic)Activator.CreateInstance(type);
+        var instance = (dynamic) Activator.CreateInstance(type);
 
         Assert.AreEqual("Hello World", instance.World());
     }
