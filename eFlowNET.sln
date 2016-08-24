@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget", "ECSFlowAddin\NuGet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "ECSFlowAddin\Tests\Tests.csproj", "{D327EC9C-DAA2-4454-A63D-7A09F3554578}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ascgen2Tests", "Ascgen2NoTry\Ascgen2Tests\Ascgen2Tests.csproj", "{94A08E1E-7512-4AAA-ADE5-F14B230835A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -212,6 +214,18 @@ Global
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578}.Release|x86.ActiveCfg = Release|Any CPU
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578}.Release|x86.Build.0 = Release|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Debug|x86.Build.0 = Debug|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Release|x86.ActiveCfg = Release|Any CPU
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -226,5 +240,6 @@ Global
 		{C3578A7B-09A6-4444-9383-0DEAFA4958BD} = {04E88053-968C-4A5B-814F-062DF5B5E61D}
 		{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2} = {04E88053-968C-4A5B-814F-062DF5B5E61D}
 		{D327EC9C-DAA2-4454-A63D-7A09F3554578} = {04E88053-968C-4A5B-814F-062DF5B5E61D}
+		{94A08E1E-7512-4AAA-ADE5-F14B230835A0} = {D73B019D-5CC9-4375-AB5E-2BB7A8CDDEAE}
 	EndGlobalSection
 EndGlobal
