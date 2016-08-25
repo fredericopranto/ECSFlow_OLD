@@ -8,7 +8,7 @@ namespace eFlowNET.Fody
     {
         public ExceptionDefinitionFinder(MethodDefinition method)
         {
-            ModuleDefinition module = ModuleDefinition.ReadModule("eFlowNET.dll");
+            ModuleDefinition module = ModuleDefinition.ReadModule("ECSFlowNET.dll");
             //TypeDefinition type = module.Types.First(t => t.FullName == "eFlowNET.Fody.GlobalExceptionInfo");
             System.Collections.Generic.IEnumerable<CustomAttribute> rsites =
                 module.Assembly.CustomAttributes.Where(t => t.AttributeType.Name.Equals("ExceptionRaiseSiteAttribute"));

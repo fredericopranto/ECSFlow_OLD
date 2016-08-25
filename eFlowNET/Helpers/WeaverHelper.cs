@@ -7,9 +7,11 @@ public static class WeaverHelper
 
     public static string Weave(string assemblyPath)
     {
-        var newAssembly = assemblyPath.Replace(".dll", "2.dll");
-        var oldPdb = assemblyPath.Replace(".dll", ".pdb");
-        var newPdb = assemblyPath.Replace(".dll", "2.pdb");
+        var extension = Path.GetExtension(assemblyPath);
+
+        var newAssembly = assemblyPath.Replace(extension, string.Concat("2", extension));
+        var oldPdb = assemblyPath.Replace(extension, ".pdb");
+        var newPdb = assemblyPath.Replace(extension, "2.pdb");
         File.Copy(assemblyPath, newAssembly, true);
         File.Copy(oldPdb, newPdb, true);
 
@@ -33,8 +35,11 @@ public static class WeaverHelper
                 ModuleDefinition = moduleDefinition,
                 AssemblyResolver = new DefaultAssemblyResolver()
             };
-            
+
+            // Weaving process
             weavingTask.Execute();
+
+            // Reassembly process
             moduleDefinition.Write(newAssembly);
 
             return newAssembly;

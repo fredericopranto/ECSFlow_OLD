@@ -8,8 +8,8 @@
     <ProjectGuid>{5EB94942-D7D5-4906-B027-CCD697DF2243}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eFlowDriverNET</RootNamespace>
-    <AssemblyName>eFlowDriverNET</AssemblyName>
+    <RootNamespace>ECSFlowDriverNET</RootNamespace>
+    <AssemblyName>ECSFlowDriverNET</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

@@ -7,8 +7,8 @@
     <ProjectGuid>{F91AE2E6-1682-478D-8F7D-DB33F98167EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eFlowNET</RootNamespace>
-    <AssemblyName>eFlowNET</AssemblyName>
+    <RootNamespace>ECSFlowNET</RootNamespace>
+    <AssemblyName>ECSFlowNET</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -36,17 +36,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayStoreException.cs" />
-    <Compile Include="GlobalExceptionInfo.cs" />
-    <Compile Include="eFlowAttributes.cs" />
-    <Compile Include="ExceptionChannelAttribute.cs" />
+    <Compile Include="ExceptionFlowConfig\Ascgen2ExceptionFlow.cs" />
+    <Compile Include="eFlowAttributeTypes.cs" />
+    <Compile Include="Attributes\ExceptionChannelAttribute.cs" />
     <Compile Include="HandlerDelegate.cs" />
-    <Compile Include="MethodFinder.cs" />
-    <Compile Include="ExceptionDefinitionFinder.cs" />
-    <Compile Include="AttributeFinder.cs" />
+    <Compile Include="Finders\MethodFinder.cs" />
+    <Compile Include="Finders\ExceptionDefinitionFinder.cs" />
+    <Compile Include="Finders\AttributeFinder.cs" />
     <Compile Include="CecilExtensions.cs" />
-    <Compile Include="ExceptionHandlerAttribute.cs" />
-    <Compile Include="ExceptionInterfaceAttribute.cs" />
-    <Compile Include="ExceptionRaiseSiteAttribute.cs" />
+    <Compile Include="Attributes\ExceptionHandlerAttribute.cs" />
+    <Compile Include="Attributes\ExceptionInterfaceAttribute.cs" />
+    <Compile Include="Attributes\ExceptionRaiseSiteAttribute.cs" />
     <Compile Include="MockAssemblyResolver.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="MyAssemblyResolver.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReturnFixer.cs" />
     <Compile Include="TypeImporter.cs" />
-    <Compile Include="WeaverHelper.cs" />
+    <Compile Include="Helpers\WeaverHelper.cs" />
     <Compile Include="WeavingException.cs" />
   </ItemGroup>
   <ItemGroup>

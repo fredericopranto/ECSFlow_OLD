@@ -9,7 +9,7 @@ namespace UnitTestProject
     [TestClass]
     public class UnitTest
     {
-        [TestInitialize]
+        [TestMethod]
         public void TestMethod()
         {
             //String command = @"C:\Doit.bat";
@@ -21,8 +21,8 @@ namespace UnitTestProject
             string newAssemblyPath;
             string assemblyPath;
 
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcess\AssemblyToProcess.csproj"));
-            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcess.dll");
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
+            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
 
             newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 
