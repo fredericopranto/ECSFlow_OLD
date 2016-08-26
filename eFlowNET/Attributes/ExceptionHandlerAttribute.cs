@@ -9,26 +9,26 @@ namespace eFlowNET.Fody
     public class ExceptionHandlerAttribute : Attribute
     {
         public string[] channelList;
-        public string raiseSite;
+        public string HandlingSite;
         public string[] exceptionList;
         public HandlerDelegate handlerDelegate;
 
 
-        public ExceptionHandlerAttribute(string[] channelList, string raiseSite, Type delegateType, string delegateName)
+        public ExceptionHandlerAttribute(string[] channelList, string HandlingSite, Type delegateType, string delegateName)
         {
             this.channelList = channelList;
-            this.raiseSite = raiseSite;
+            this.HandlingSite = HandlingSite;
             handlerDelegate = (HandlerDelegate)Delegate.CreateDelegate(delegateType, delegateType.GetMethod(delegateName));
         }
 
-        public ExceptionHandlerAttribute(string[] channelList, string[] exceptionList, string raiseSite, RaiseSiteScope raiseSiteScope,
-            Type delegateType, string delegateName) : this(channelList, raiseSite, delegateType, delegateName)
+        public ExceptionHandlerAttribute(string[] channelList, string HandlingSite, string[] exceptionList, 
+            Type delegateType, string delegateName) : this(channelList, HandlingSite, delegateType, delegateName)
         {
             this.exceptionList = exceptionList;
         }
 
-        public ExceptionHandlerAttribute(string channelList, string raiseSite, Type delegateType, string delegateName)
-            : this(new string[] { channelList }, raiseSite, delegateType, delegateName)
+        public ExceptionHandlerAttribute(string channelList, string HandlingSite, Type delegateType, string delegateName)
+            : this(new string[] { channelList }, HandlingSite, delegateType, delegateName)
         { }
     }
 }

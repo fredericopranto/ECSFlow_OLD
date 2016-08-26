@@ -1,83 +1,41 @@
 ﻿using eFlowNET.Fody;
-using System;
-using System.Data.Common;
-using System.Data.SqlClient;
 
-// General information about global exception handling specification
+// Information about global exception handling specification
 
-#region Util Injection
+#region View (Forms)
 
-[assembly: ExceptionRaiseSite("rSite2", "getImageInfoFromBytes()")]
-[assembly: ExceptionChannel("EEC2", new string[] { "IndexOutOfRangeException", "ArrayStoreException" }, false, "rSite2")]
-[assembly: ExceptionInterface("EEC2", "lancs.mobilemedia.core.util", true, "LibException")]
+[assembly: ExceptionRaiseSite("rSite1", "FormConvertImage.LoadImage")]
+[assembly: ExceptionChannel("EEC1", new string[] { "OutOfMemoryException" }, new string[] { "rSite1" } ) ]
+[assembly: ExceptionChannel("EEC2", new string[] { "FileNotFoundException" }, new string[] { "rSite1" })]
 
 #endregion
 
-#region Model Injection
+#region MainHandler
 
-[assembly: ExceptionRaiseSite("rSite1", "lancs.mobilemedia.core.ui.datamodel.*")]
-[assembly: ExceptionChannel("EEC1", new string[] { "RecordStoreException"}, true, "rSite1")]
-[assembly: ExceptionInterface("EEC1", "rSite1", false)]
+[assembly: ExceptionHandler(new string[] { "EEC1", "EEC2" }, "Ascgen2.Main", 
+        new string[] { "OutOfMemoryException" }, 
+        typeof(Ascgen2ControllerHandler), nameof(Ascgen2ControllerHandler.OutOfMemoryExceptionHandler))]
 
-[assembly: ExceptionRaiseSite("EEC2", "Util.EEC2")]
-[assembly: ExceptionInterface("EEC2", "rSite1", false)]
+[assembly: ExceptionHandler(new string[] { "EEC1", "EEC2" }, "Ascgen2.Main",
+        new string[] { "FileNotFoundException" },
+        typeof(Ascgen2ControllerHandler), nameof(Ascgen2ControllerHandler.FileNotFoundExceptionHandler))]
 
-#endregion
 
-#region Control Injection
-
-[assembly: ExceptionRaiseSite("EEC1", "Model.EEC1")]
-[assembly: ExceptionRaiseSite("EEC2", "Model.EEC2")]
-[assembly: ExceptionHandler(new string[] { "EEC2", "EEC1" }, "BaseController", 
-    typeof(BaseControllerHandler), nameof(BaseControllerHandler.handler))]
-
-#endregion
-
-#region View Injection
-
-[assembly: ExceptionRaiseSite("EEC1", "Model.EEC1")]
-[assembly: ExceptionHandler("EEC1", "lancs.mobilemedia.core.ui.screens.*", 
-    typeof(BaseControllerHandler), nameof(BaseControllerHandler.handler))]
-
-#endregion
 
 // General handler implementation
-public struct BaseControllerHandler
+public struct Ascgen2ControllerHandler
 {
-    public static void handler(Exception e)
-    { Console.WriteLine(e.Message); }
+    public static void OutOfMemoryExceptionHandler(System.OutOfMemoryException e)
+    {
+        System.Console.WriteLine("OutOfMemoryException caught");
+        System.Console.WriteLine(e.Message);
+    }
+
+    public static void FileNotFoundExceptionHandler(System.IO.FileNotFoundException e)
+    {
+        System.Console.WriteLine("FileNotFoundException caught");
+        System.Console.WriteLine(e.Message);
+    }
 }
 
-
-/// <summary>
-/// General Information about global exception handling implementation
-/// </summary>
-public static class GlobalExceptionImpl
-{
-    /// <summary>
-    /// Type Handler: Exception
-    /// </summary>
-    /// <param name="ex"></param>
-    public static void ExceptionTypeHandler(Exception ex)
-    {
-        Console.WriteLine(">> Type Handler: Exception");
-    }
-
-    /// <summary>
-    /// Type Handler: SqlException
-    /// </summary>
-    /// <param name="sqlEx"></param>
-    public static void SqlExceptionTypeHandler(SqlException sqlEx)
-    {
-        Console.WriteLine(">> Type Handler: SqlException");
-    }
-
-    /// <summary>
-    /// Type Handler: DbException
-    /// </summary>
-    /// <param name="ex"></param>
-    public static void DbExceptionTypeHandler(DbException ex)
-    {
-        Console.WriteLine(">> Type Handler: DbException");
-    }
-}
+#endregion

@@ -10,18 +10,18 @@ namespace eFlowNET.Fody
     {
         public ExceptionChannelAttribute channel;
         public ExceptionHandlerAttribute handler;
-        public string alias;
-        public string raiseSite;
-        
-        public ExceptionRaiseSiteAttribute(string alias)
-        {
-            this.alias = alias;
-        }
+        public string RaiseSiteName;
+        public string RaiseSiteTarget;
 
-        public ExceptionRaiseSiteAttribute(string alias, string raiseSite)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="RaiseSite Name"></param>
+        /// <param name="RaiseSite Target"></param>
+        public ExceptionRaiseSiteAttribute(string RaiseSiteName, string RaiseSiteTarget)
         {
-            this.alias = alias;
-            this.raiseSite = raiseSite;
+            this.RaiseSiteName = RaiseSiteName;
+            this.RaiseSiteTarget = RaiseSiteTarget;
         }
     }
 

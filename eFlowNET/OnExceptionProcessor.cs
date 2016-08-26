@@ -3,7 +3,6 @@ using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
-using System;
 
 namespace eFlowNET.Fody
 {
@@ -63,6 +62,7 @@ namespace eFlowNET.Fody
         }
 
         /// <summary>
+        /// //todo: add finally block too
         ///  Surround current Method Body with Try/Catch
         /// </summary>
         void SurroundBody(AttributeFinder attributeFinder)

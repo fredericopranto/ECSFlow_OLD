@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayStoreException.cs" />
+    <Compile Include="ExceptionFlowConfig\GenericExceptionFlow.cs" />
     <Compile Include="ExceptionFlowConfig\Ascgen2ExceptionFlow.cs" />
     <Compile Include="eFlowAttributeTypes.cs" />
     <Compile Include="Attributes\ExceptionChannelAttribute.cs" />

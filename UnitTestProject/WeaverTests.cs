@@ -14,13 +14,10 @@ public class WeaverTests
     [TestInitialize]
     public void Setup()
     {
-        var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcess\AssemblyToProcess.csproj"));
-        assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcess.dll");
-#if (!DEBUG)
-        assemblyPath = assemblyPath.Replace("Debug", "Release");
-#endif
+        var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
+        assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
 
-        newAssemblyPath = assemblyPath.Replace(".dll", "2.dll");
+        newAssemblyPath = assemblyPath.Replace(".exe", "2.exe");
         File.Copy(assemblyPath, newAssemblyPath, true);
 
         var moduleDefinition = ModuleDefinition.ReadModule(newAssemblyPath);
@@ -35,8 +32,8 @@ public class WeaverTests
         assembly = Assembly.LoadFile(newAssemblyPath);
     }
 
-    //[TestMethod]
-    public void AddinValidateHelloWorldIsInjected()
+    [TestMethod]
+    public void eFlowValidateHelloWorldIsInjected()
     {
         var type = assembly.GetType("Hello");
         var instance = (dynamic) Activator.CreateInstance(type);
@@ -45,8 +42,8 @@ public class WeaverTests
     }
 
 #if(DEBUG)
-    //[TestMethod]
-    public void AddinPeVerify()
+   // [TestMethod]
+    public void eFlowPeVerify()
     {
         Verifier.Verify(assemblyPath,newAssemblyPath);
     }

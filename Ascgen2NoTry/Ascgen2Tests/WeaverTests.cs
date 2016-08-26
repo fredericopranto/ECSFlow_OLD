@@ -35,7 +35,7 @@ public class WeaverTests
         assembly = Assembly.LoadFile(newAssemblyPath);
     }
 
-    [TestMethod]
+   // [TestMethod]
     public void Ascgen2ValidateHelloWorldIsInjected()
     {
         var type = assembly.GetType("Hello");
@@ -45,7 +45,7 @@ public class WeaverTests
     }
 
 #if(DEBUG)
-    [TestMethod]
+    //[TestMethod]
     public void Ascgen2PeVerify()
     {
         Verifier.Verify(assemblyPath,newAssemblyPath);

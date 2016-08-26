@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using Mono.Cecil;
 using Mono.Cecil.Pdb;
+using eFlowNET.Fody;
 
 public static class WeaverHelper
 {
@@ -29,6 +30,20 @@ public static class WeaverHelper
                 SymbolReaderProvider = new PdbReaderProvider()
             };
             var moduleDefinition = ModuleDefinition.ReadModule(newAssembly, readerParameters);
+
+
+            //ModuleDefinition eFlowModule = ModuleDefinition.ReadModule("ECSFlowNET.dll");
+
+            //// Code to deep copy the reference assembly into the main assembly
+            //var importer = new TypeImporter(eFlowModule, moduleDefinition.Assembly.MainModule);
+            //foreach (var definition in moduleDefinition.Assembly.Modules.SelectMany(x => x.Types).ToArray())
+            //{
+            //    importer.Import(definition);
+            //}
+
+            //var exceptionType = system.MainModule.GetTypes().First(x => x.Name == exception.Name);
+            //moduleDefinition.ImportReference(exceptionType);
+
 
             var weavingTask = new ModuleWeaver
             {

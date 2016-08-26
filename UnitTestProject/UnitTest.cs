@@ -10,7 +10,7 @@ namespace UnitTestProject
     public class UnitTest
     {
         [TestMethod]
-        public void TestMethod()
+        public void eFlowTestMethod()
         {
             //String command = @"C:\Doit.bat";
             //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
@@ -29,8 +29,8 @@ namespace UnitTestProject
             assembly = Assembly.LoadFile(newAssemblyPath);
         }
 
-        [TestMethod]
-        public void ExecuteILRepackMerge()
+        //[TestMethod]
+        public void eFlowExecuteILRepackMerge()
         {
             int exitCode;
             ProcessStartInfo processInfo;
