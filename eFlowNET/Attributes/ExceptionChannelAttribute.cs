@@ -1,14 +1,15 @@
-﻿using System;
+﻿using ECSFlow.Attributes;
+using System;
 using System.Collections.Generic;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
     /// <summary>
     /// An explicit exception channel (channel, for short) is an abstract duct through which exceptions 
     /// flow from a raising site to a handling site.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
-    public class ExceptionChannelAttribute : Attribute
+    public class ExceptionChannelAttribute : Attribute, IECSFlowAttribute
     {
         public ExceptionRaiseSiteAttribute RaiseSite;
         public string channelName;

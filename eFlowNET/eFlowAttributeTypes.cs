@@ -1,4 +1,4 @@
-﻿namespace eFlowNET
+﻿namespace ECSFlow
 {
     class eFlowAttributeTypes
     {

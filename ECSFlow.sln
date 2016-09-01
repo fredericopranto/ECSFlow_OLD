@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseLibraryEHApplicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyToProcessFlow", "AssemblyToProcessFlow\AssemblyToProcessFlow.csproj", "{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFlowNetTestApp", "eFlowNetTestApp\eFlowNetTestApp.csproj", "{3DE6948E-06F2-458A-8151-B065EEA1502F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowRun", "eFlowNetTestApp\ECSFlowRun.csproj", "{3DE6948E-06F2-458A-8151-B065EEA1502F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

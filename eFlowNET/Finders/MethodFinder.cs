@@ -1,7 +1,7 @@
 ﻿using Mono.Cecil;
 using System.Linq;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
     public class MethodFinder
     {

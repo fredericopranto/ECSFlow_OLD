@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ArrayStoreException.cs" />
+    <Compile Include="Attributes\IECSFlowAttribute.cs" />
     <Compile Include="ExceptionFlowConfig\GenericExceptionFlow.cs" />
     <Compile Include="ExceptionFlowConfig\Ascgen2ExceptionFlow.cs" />
     <Compile Include="eFlowAttributeTypes.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="WeavingException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="definitions.config">
       <SubType>Designer</SubType>
     </None>

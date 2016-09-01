@@ -1,4 +1,4 @@
-﻿using eFlowNET.Fody;
+﻿using ECSFlow.Fody;
 
 // Information about global exception handling specification
 

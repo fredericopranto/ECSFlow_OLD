@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ECSFlow.Attributes;
+using System;
 using System.Collections.Generic;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
     /// <summary>
     /// An explicit exception channel (channel, for short) is an abstract duct through which exceptions 
@@ -12,7 +13,7 @@ namespace eFlowNET.Fody
     /// interface.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
-    public class ExceptionInterfaceAttribute : Attribute
+    public class ExceptionInterfaceAttribute : Attribute, IECSFlowAttribute
     {
         public InterfaceScope scope;
         public string exception;

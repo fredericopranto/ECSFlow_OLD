@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ECSFlow.Attributes;
+using System;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
     /// <summary>
     /// 
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
-    public class ExceptionHandlerAttribute : Attribute
+    public class ExceptionHandlerAttribute : Attribute, IECSFlowAttribute
     {
         public string[] channelList;
         public string HandlingSite;

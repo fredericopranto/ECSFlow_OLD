@@ -1,4 +1,4 @@
-﻿namespace eFlowNET.Fody
+﻿namespace ECSFlow.Fody
 {
     internal class ArrayStoreException
     {

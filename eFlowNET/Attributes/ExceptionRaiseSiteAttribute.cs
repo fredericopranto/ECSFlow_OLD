@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ECSFlow.Attributes;
+using System;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
     /// <summary>
     /// If an <see cref="Exception"/> occurs in the applied method then flow it explicit.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
-    public class ExceptionRaiseSiteAttribute : Attribute
+    public class ExceptionRaiseSiteAttribute : Attribute, IECSFlowAttribute
     {
         public ExceptionChannelAttribute channel;
         public ExceptionHandlerAttribute handler;

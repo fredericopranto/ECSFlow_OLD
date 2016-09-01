@@ -4,30 +4,25 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
-namespace TestApp
+namespace ECSFlowRun
 {
-    [TestClass]
-    class Program
+    class ECSFlowRun
     {
-        [TestMethod]
         static void Main(string[] args)
         {
-
             //String command = @"C:\Doit.bat";
             //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
-
             //ExecuteILRepackMerge();
 
-            Assembly assembly;
-            string newAssemblyPath;
-            string assemblyPath;
+            //var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
+            //var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
 
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
-            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
+            var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
 
-            newAssemblyPath = WeaverHelper.Weave(assemblyPath);
+            var newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 
-            assembly = Assembly.LoadFile(newAssemblyPath);
+            var assembly = Assembly.LoadFile(newAssemblyPath);
         }
 
         static void ExecuteILRepackMerge()

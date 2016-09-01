@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
 	class TypeImporter
 	{

@@ -4,7 +4,7 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 
-namespace eFlowNET.Fody
+namespace ECSFlow.Fody
 {
     /// <summary>
     /// Main exception processor
@@ -13,38 +13,38 @@ namespace eFlowNET.Fody
     {
         public MethodDefinition Method;
         public ModuleWeaver ModuleWeaver;
-        MethodBody body;
+        public MethodBody Body;
 
-        MethodFinder methodFinder;
-        AttributeFinder attributeFinder;
-        ExceptionDefinitionFinder exceptionFinder;
+        MethodFinder MethodFinder;
+        AttributeFinder AttributeFinder;
+        ExceptionDefinitionFinder ExceptionFinder;
 
         /// <summary>
-        /// Process the current method in case of match the configuration in GlobalExceptionDefinitions
+        /// Process the current method in case of match the configuration in ECSFlowExceptionDefinitionFile
         /// </summary>
         public void Process()
         {
-            exceptionFinder = new ExceptionDefinitionFinder(Method);
-            if (!exceptionFinder.Inpect)
+            ExceptionFinder = new ExceptionDefinitionFinder(Method);
+            if (!ExceptionFinder.Inpect)
             {
                 return;
             }
 
-            ContinueProcessing(exceptionFinder);
+            ContinueProcessing(ExceptionFinder);
         }
 
         /// <summary>
-        /// In case of having Raising Site, the current method is surrounded by a Try/Catch block
+        /// In case of having Raising Site, the current method is surrounded by a Try/Catch/Finally block
         /// </summary>
         /// <param name="exceptionFinder"></param>
         void ContinueProcessing(ExceptionDefinitionFinder exceptionFinder)
         {
             InjectAttributes(exceptionFinder);
 
-            attributeFinder = new AttributeFinder(Method);
-            if (attributeFinder.Raising)
+            AttributeFinder = new AttributeFinder(Method);
+            if (AttributeFinder.Raising)
             {
-                SurroundBody(attributeFinder);
+                SurroundBody(AttributeFinder);
             }
         }
 
@@ -67,11 +67,11 @@ namespace eFlowNET.Fody
         /// </summary>
         void SurroundBody(AttributeFinder attributeFinder)
         {
-            body = Method.Body;
+            Body = Method.Body;
 
-            body.SimplifyMacros();
+            Body.SimplifyMacros();
 
-            var ilProcessor = body.GetILProcessor();
+            var ilProcessor = Body.GetILProcessor();
 
             var returnFixer = new ReturnFixer
             {
@@ -90,13 +90,13 @@ namespace eFlowNET.Fody
             foreach (var exceptionType in attributeFinder.Exceptions)
             {
                 // Find the proper handler by exception type
-                methodFinder = new MethodFinder(exceptionType);
+                MethodFinder = new MethodFinder(exceptionType);
                 
-                if (methodFinder.Found) // Surround with Try/Catch and Inject the proper handler
+                if (MethodFinder.Found) // Surround with Try/Catch and Inject the proper handler
                 {
-                    var writeLineRef = body.Method.Module.Assembly.MainModule.ImportReference(exceptionType); 
+                    var writeLineRef = Body.Method.Module.Assembly.MainModule.ImportReference(exceptionType); 
 
-                    var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, methodFinder.Method).ToList();
+                    var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, MethodFinder.Method).ToList();
                     ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
                     ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
 
@@ -109,7 +109,7 @@ namespace eFlowNET.Fody
                         HandlerEnd = catchBlockInstructions.Last().Next
                     };
 
-                    body.ExceptionHandlers.Add(handler);
+                    Body.ExceptionHandlers.Add(handler);
                 }
                 else // Surround with Try/Catch and Inject the throws handler
                 {
@@ -128,12 +128,12 @@ namespace eFlowNET.Fody
                         HandlerEnd = catchBlockInstructions.Last().Next
                     };
 
-                    body.ExceptionHandlers.Add(handler);
+                    Body.ExceptionHandlers.Add(handler);
                 }
             }
 
-            body.InitLocals = true;
-            body.OptimizeMacros();
+            Body.InitLocals = true;
+            Body.OptimizeMacros();
         }
 
         /// <summary>
@@ -144,9 +144,9 @@ namespace eFlowNET.Fody
         {
             if (Method.IsConstructor)
             {
-                return body.Instructions.First(i => i.OpCode == OpCodes.Call).Next;
+                return Body.Instructions.First(i => i.OpCode == OpCodes.Call).Next;
             }
-            return body.Instructions.First();
+            return Body.Instructions.First();
         }
 
         /// <summary>
