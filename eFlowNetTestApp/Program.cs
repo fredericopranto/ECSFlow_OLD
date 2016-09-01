@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
 namespace TestApp
 {
+    [TestClass]
     class Program
     {
+        [TestMethod]
         static void Main(string[] args)
         {
 
@@ -19,8 +22,8 @@ namespace TestApp
             string newAssemblyPath;
             string assemblyPath;
 
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcess\AssemblyToProcess.csproj"));
-            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcess.dll");
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
+            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
 
             newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 

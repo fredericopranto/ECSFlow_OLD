@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CciExplorer.CodeModel", "Cc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowDriverNET", "eFlowDriverNET\ECSFlowDriverNET.csproj", "{5EB94942-D7D5-4906-B027-CCD697DF2243}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowNET", "eFlowNET\ECSFlowNET.csproj", "{F91AE2E6-1682-478D-8F7D-DB33F98167EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlow", "eFlowNET\ECSFlow.csproj", "{F91AE2E6-1682-478D-8F7D-DB33F98167EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs", "Lab\Labs.csproj", "{29618238-72D2-451A-B20F-D9435910C3C3}"
 EndProject
@@ -42,6 +42,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostSharpSample", "PostSharpSample\PostSharpSample.csproj", "{6F076B1A-B1AC-4F88-A310-478B31158DAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseLibraryEHApplicationBlockSample", "EnterpriseLibraryExceptionHandlingApplicationBlockSample\EnterpriseLibraryEHApplicationBlockSample.csproj", "{4B131171-9E05-4965-A384-5F593555D37E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyToProcessFlow", "AssemblyToProcessFlow\AssemblyToProcessFlow.csproj", "{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eFlowNetTestApp", "eFlowNetTestApp\eFlowNetTestApp.csproj", "{3DE6948E-06F2-458A-8151-B065EEA1502F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -256,6 +260,30 @@ Global
 		{4B131171-9E05-4965-A384-5F593555D37E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4B131171-9E05-4965-A384-5F593555D37E}.Release|x86.ActiveCfg = Release|Any CPU
 		{4B131171-9E05-4965-A384-5F593555D37E}.Release|x86.Build.0 = Release|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}.Release|x86.Build.0 = Release|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Debug|x86.Build.0 = Debug|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Release|x86.ActiveCfg = Release|Any CPU
+		{3DE6948E-06F2-458A-8151-B065EEA1502F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,7 @@ namespace UnitTestProject
     public class UnitTest
     {
         [TestMethod]
-        public void eFlowTestMethod()
+        public void initAsc()
         {
             //String command = @"C:\Doit.bat";
             //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
@@ -23,6 +23,27 @@ namespace UnitTestProject
 
             var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
             assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
+
+            newAssemblyPath = WeaverHelper.Weave(assemblyPath);
+
+            assembly = Assembly.LoadFile(newAssemblyPath);
+        }
+
+
+        [TestMethod]
+        public void initAssembly()
+        {
+            //String command = @"C:\Doit.bat";
+            //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
+
+            //ExecuteILRepackMerge();
+
+            Assembly assembly;
+            string newAssemblyPath;
+            string assemblyPath;
+
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
+            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
 
             newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 

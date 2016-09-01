@@ -31,30 +31,13 @@ public static class WeaverHelper
             };
             var moduleDefinition = ModuleDefinition.ReadModule(newAssembly, readerParameters);
 
-
-            //ModuleDefinition eFlowModule = ModuleDefinition.ReadModule("ECSFlowNET.dll");
-
-            //// Code to deep copy the reference assembly into the main assembly
-            //var importer = new TypeImporter(eFlowModule, moduleDefinition.Assembly.MainModule);
-            //foreach (var definition in moduleDefinition.Assembly.Modules.SelectMany(x => x.Types).ToArray())
-            //{
-            //    importer.Import(definition);
-            //}
-
-            //var exceptionType = system.MainModule.GetTypes().First(x => x.Name == exception.Name);
-            //moduleDefinition.ImportReference(exceptionType);
-
-
             var weavingTask = new ModuleWeaver
             {
                 ModuleDefinition = moduleDefinition,
                 AssemblyResolver = new DefaultAssemblyResolver()
             };
 
-            // Weaving process
             weavingTask.Execute();
-
-            // Reassembly process
             moduleDefinition.Write(newAssembly);
 
             return newAssembly;
