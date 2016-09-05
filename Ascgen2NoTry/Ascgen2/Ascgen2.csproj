@@ -463,6 +463,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\eFlowNET\ECSFlow.csproj">
+      <Project>{f91ae2e6-1682-478d-8f7d-db33f98167ea}</Project>
+      <Name>ECSFlow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JMSoftware.Controls\JMSoftware.Controls.csproj">
       <Project>{69E1D695-5C48-47A4-B8A7-01C43FE4BB40}</Project>
       <Name>JMSoftware.Controls</Name>

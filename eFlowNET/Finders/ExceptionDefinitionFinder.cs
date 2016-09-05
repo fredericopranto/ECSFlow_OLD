@@ -20,9 +20,9 @@ namespace ECSFlow.Fody
         {
             ModuleDefinition module = ModuleDefinition.ReadModule("ECSFlow.dll");
 
-            IQueryable<CustomAttribute> rsites = (IQueryable<CustomAttribute>) from t in method.Resolve().CustomAttributes.AsQueryable()
-                         where t.AttributeType.Resolve().FullName == typeof(ExceptionRaiseSiteAttribute).FullName
-                            select t;
+            IQueryable<CustomAttribute> rsites = from t in method.Resolve().CustomAttributes.AsQueryable()
+                                                 where t.AttributeType.Resolve().FullName == typeof(ExceptionRaiseSiteAttribute).FullName
+                                                 select t;
 
             IQueryable<CustomAttribute> channels = from t in method.Resolve().CustomAttributes.AsQueryable()
                                                    where t.AttributeType.Resolve().FullName == typeof(ExceptionChannelAttribute).FullName

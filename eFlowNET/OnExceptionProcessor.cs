@@ -24,13 +24,20 @@ namespace ECSFlow.Fody
         /// </summary>
         public void Process()
         {
-            ExceptionFinder = new ExceptionDefinitionFinder(Method);
-            if (!ExceptionFinder.Inpect)
+            //If has no customattribute, not process
+            if (Method.Resolve().CustomAttributes.Count > 0)
             {
-                return;
-            }
+                if (Method.Name.Contains("LoadImage"))
+                {
+                    ExceptionFinder = new ExceptionDefinitionFinder(Method);
+                    if (!ExceptionFinder.Inpect)
+                    {
+                        return;
+                    }
 
-            ContinueProcessing(ExceptionFinder);
+                    ContinueProcessing(ExceptionFinder);
+                }
+            }
         }
 
         /// <summary>
