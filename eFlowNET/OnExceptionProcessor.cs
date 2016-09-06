@@ -27,16 +27,14 @@ namespace ECSFlow.Fody
             //If has no customattribute, not process
             if (Method.Resolve().CustomAttributes.Count > 0)
             {
-                if (Method.Name.Contains("LoadImage"))
+                ExceptionFinder = new ExceptionDefinitionFinder(Method);
+                if (!ExceptionFinder.Inpect)
                 {
-                    ExceptionFinder = new ExceptionDefinitionFinder(Method);
-                    if (!ExceptionFinder.Inpect)
-                    {
-                        return;
-                    }
-
-                    ContinueProcessing(ExceptionFinder);
+                    return;
                 }
+
+                ContinueProcessing(ExceptionFinder);
+
             }
         }
 
@@ -98,10 +96,10 @@ namespace ECSFlow.Fody
             {
                 // Find the proper handler by exception type
                 MethodFinder = new MethodFinder(exceptionType);
-                
+
                 if (MethodFinder.Found) // Surround with Try/Catch and Inject the proper handler
                 {
-                    var writeLineRef = Body.Method.Module.Assembly.MainModule.ImportReference(exceptionType); 
+                    var writeLineRef = Body.Method.Module.Assembly.MainModule.ImportReference(exceptionType);
 
                     var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, MethodFinder.Method).ToList();
                     ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);

@@ -15,7 +15,7 @@ public class ModuleWeaver
     /// Assemnly representation
     /// </summary>
     public ModuleDefinition ModuleDefinition { get; set; }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -51,7 +51,8 @@ public class ModuleWeaver
         // Process each module type
         foreach (var type in ModuleDefinition.GetTypes().Where(x => (x.BaseType != null) && !x.IsEnum && !x.IsInterface))
         {
-            ProcessMethods(type, type.Module.GetTypes().ToList<TypeDefinition>);
+            if(type.Name == "FormConvertImage")
+                ProcessMethods(type);
         }
     }
 
@@ -59,26 +60,62 @@ public class ModuleWeaver
     /// 
     /// </summary>
     /// <param name="type"></param>
-    void ProcessMethods(TypeDefinition type, IQueryable<TypeDefinition> types)
+    void ProcessMethods(TypeDefinition type)
     {
-        if(types.Count > 0)
-            foreach (var method in type.Methods)
+        foreach (var method in type.Methods)
+        {
+            if (method.Name == "LoadImage")
             {
-                // Skip for abstract and delegates
-                if (!method.HasBody)
-                {
-                    continue;
-                }
-
-                // ExceptionProcessor configuration
-                var onExceptionProcessor = new OnExceptionProcessor
-                {
-                    Method = method,
-                    ModuleWeaver = this
-                };
-                onExceptionProcessor.Process();
+                var di = "sda";
             }
 
-            ProcessType(innerType, );
+            // Skip for abstract and delegates
+            if (!method.HasBody)
+            {
+                continue;
+            }
+
+            // ExceptionProcessor configuration
+            var onExceptionProcessor = new OnExceptionProcessor
+            {
+                Method = method,
+                ModuleWeaver = this
+            };
+            onExceptionProcessor.Process();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
+    void ProcessMethods2(TypeDefinition type, List<TypeDefinition> types)
+    {
+        foreach (var innerType in types)
+        {
+            if (innerType.Module.GetTypes().Any())
+            {
+                ProcessMethods2(innerType, innerType.Module.GetTypes().ToList());
+            }
+            else
+            {
+                foreach (var method in type.Methods)
+                {
+                    // Skip for abstract and delegates
+                    if (!method.HasBody)
+                    {
+                        continue;
+                    }
+
+                    // ExceptionProcessor configuration
+                    var onExceptionProcessor = new OnExceptionProcessor
+                    {
+                        Method = method,
+                        ModuleWeaver = this
+                    };
+                    onExceptionProcessor.Process();
+                }
+            }
+        }
     }
 }
