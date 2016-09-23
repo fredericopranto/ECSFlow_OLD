@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -10,19 +9,27 @@ namespace ECSFlowRun
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Weaving starting...");
+
+
             //String command = @"C:\Doit.bat";
             //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
             //ExecuteILRepackMerge();
 
-            //var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
-            //var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
+            var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
 
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
-            var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
+            //var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
+            //var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
 
             var newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 
+            Verifier.Verify(assemblyPath, newAssemblyPath);
+            Console.WriteLine("Weaving verified");
+
             var assembly = Assembly.LoadFile(newAssemblyPath);
+            Console.WriteLine("New assembly created");
+            Console.Read();
         }
 
         static void ExecuteILRepackMerge()

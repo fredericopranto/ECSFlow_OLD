@@ -7,6 +7,7 @@ namespace ECSFlow.Fody
     /// If an <see cref="Exception"/> occurs in the applied method then flow it explicit.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
+    [CLSCompliant(true)]
     public class ExceptionRaiseSiteAttribute : Attribute, IECSFlowAttribute
     {
         public ExceptionChannelAttribute channel;

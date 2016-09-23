@@ -19,7 +19,7 @@ namespace ECSFlow.Fody
         {
             this.channelList = channelList;
             this.HandlingSite = HandlingSite;
-            handlerDelegate = (HandlerDelegate)Delegate.CreateDelegate(delegateType, delegateType.GetMethod(delegateName));
+            handlerDelegate = (HandlerDelegate) Delegate.CreateDelegate(delegateType, delegateType.GetMethod(delegateName));
         }
 
         public ExceptionHandlerAttribute(string[] channelList, string HandlingSite, string[] exceptionList, 
@@ -30,6 +30,10 @@ namespace ECSFlow.Fody
 
         public ExceptionHandlerAttribute(string channelList, string HandlingSite, Type delegateType, string delegateName)
             : this(new string[] { channelList }, HandlingSite, delegateType, delegateName)
+        { }
+
+        public ExceptionHandlerAttribute(string channelList, Type delegateType, string delegateName)
+            : this(new string[] { channelList }, "", delegateType, delegateName)
         { }
     }
 }

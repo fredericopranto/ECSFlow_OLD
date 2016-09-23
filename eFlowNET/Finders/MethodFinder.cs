@@ -1,16 +1,23 @@
 ﻿using Mono.Cecil;
+using System;
 using System.Linq;
 
 namespace ECSFlow.Fody
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MethodFinder
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exceptionType"></param>
         public MethodFinder(TypeReference exceptionType)
         {
-            ModuleDefinition module = ModuleDefinition.ReadModule("eFlowNET.dll");
-            TypeDefinition type = module.Types.First(t => t.FullName == "eFlowNET.Fody.GlobalExceptionDefinitions");
+            ModuleDefinition module = ModuleDefinition.ReadModule("ECSFlow.dll");
+            TypeDefinition type = module.Types.First(t => t.FullName == "AssemblyToProcessHander");
 
-            //search:
             foreach (var methodRef in type.Methods)
             {
                 foreach (var par in methodRef.Parameters.ToList())
@@ -18,14 +25,19 @@ namespace ECSFlow.Fody
                     if (par.ParameterType.FullName.Equals(exceptionType.FullName))
                     {
                         Found = true;
-                        Method = methodRef;
-                        //goto search;
+                        MethodDefinition = methodRef;
+                        TypeReference = type;
+                        MethodReference = methodRef.GetElementMethod();
+                        Console.WriteLine("Method found");
+                        break;
                     }
                 }
             }
         }
 
         public bool Found;
-        public MethodDefinition Method;
+        public MethodDefinition MethodDefinition;
+        public TypeReference TypeReference;
+        public MethodReference MethodReference;
     }
 }

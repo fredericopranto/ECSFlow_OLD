@@ -1,9 +1,7 @@
-﻿using ECSFlow.Attributes;
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using Mono.Collections.Generic;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace ECSFlow.Fody
 {
@@ -46,6 +44,7 @@ namespace ECSFlow.Fody
                 {
                     Inpect = true;
                     CustomAttributes.Add(item);
+                    Console.WriteLine("Custom Attributes added" + item);
                 }
 
                 break;
@@ -53,6 +52,6 @@ namespace ECSFlow.Fody
         }
 
         public bool Inpect;
-        public Collection<Mono.Cecil.CustomAttribute> CustomAttributes;
+        public Collection<Mono.Cecil.CustomAttribute> CustomAttributes = new Collection<CustomAttribute>();
     }
 }

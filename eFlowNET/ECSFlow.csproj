@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,8 +38,9 @@
   <ItemGroup>
     <Compile Include="ArrayStoreException.cs" />
     <Compile Include="Attributes\IECSFlowAttribute.cs" />
-    <Compile Include="ExceptionFlowConfig\GenericExceptionFlow.cs" />
     <Compile Include="ExceptionFlowConfig\Ascgen2ExceptionFlow.cs" />
+    <Compile Include="ExceptionFlowConfig\GenericExceptionFlow.cs" />
+    <Compile Include="ExceptionFlowConfig\AssemblyToProcessHander.cs" />
     <Compile Include="eFlowAttributeTypes.cs" />
     <Compile Include="Attributes\ExceptionChannelAttribute.cs" />
     <Compile Include="HandlerDelegate.cs" />

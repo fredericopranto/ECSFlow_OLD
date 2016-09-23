@@ -41,9 +41,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RelatedProjects", "RelatedP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostSharpSample", "PostSharpSample\PostSharpSample.csproj", "{6F076B1A-B1AC-4F88-A310-478B31158DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseLibraryEHApplicationBlockSample", "EnterpriseLibraryExceptionHandlingApplicationBlockSample\EnterpriseLibraryEHApplicationBlockSample.csproj", "{4B131171-9E05-4965-A384-5F593555D37E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHApplicationBlockSample", "EnterpriseLibraryExceptionHandlingApplicationBlockSample\EHApplicationBlockSample.csproj", "{4B131171-9E05-4965-A384-5F593555D37E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyToProcessFlow", "AssemblyToProcessFlow\AssemblyToProcessFlow.csproj", "{3B222FE1-ECEE-4B1D-9D35-79B7050E1161}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F91AE2E6-1682-478D-8F7D-DB33F98167EA} = {F91AE2E6-1682-478D-8F7D-DB33F98167EA}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSFlowRun", "eFlowNetTestApp\ECSFlowRun.csproj", "{3DE6948E-06F2-458A-8151-B065EEA1502F}"
 EndProject

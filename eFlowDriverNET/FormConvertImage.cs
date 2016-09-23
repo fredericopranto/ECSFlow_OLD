@@ -10,7 +10,7 @@ using TourreauGilles.CciExplorer.CSharp;
 
 namespace eFlowDriverNET
 {
-    public class Program
+    public class FormConvertImage
     {
         /// <summary>
         /// Método Main - Executa a aplicação
@@ -27,10 +27,11 @@ namespace eFlowDriverNET
         /// </summary>
         private static void eFlow()
         {
-            string assemblyPath;
+            //var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
+            //var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
 
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcess\AssemblyToProcess.csproj"));
-            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcess.dll");
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
+            var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
 
             MetadataReaderHost module = new PeReader.DefaultHost();
             var assembly = module.LoadUnitFrom(assemblyPath) as IModule;

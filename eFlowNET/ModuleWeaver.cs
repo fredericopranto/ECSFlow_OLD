@@ -44,16 +44,23 @@ public class ModuleWeaver
     /// </summary>
     public void Execute()
     {
+        ImportResources();
+
+        // Process each module type
+        IEnumerable<TypeDefinition> types = ModuleDefinition.GetTypes().Where(x => (x.BaseType != null) && !x.IsEnum && !x.IsInterface).ToList();
+        foreach (var type in types)
+        {
+            ProcessMethods(type);
+        }
+    }
+
+    private void ImportResources()
+    {
         // Import .NET base assembly 
         var msCoreLibDefinition = AssemblyResolver.Resolve("mscorlib");
         ExceptionType = ModuleDefinition.ImportReference(msCoreLibDefinition.MainModule.Types.First(x => x.Name == "Exception"));
 
-        // Process each module type
-        foreach (var type in ModuleDefinition.GetTypes().Where(x => (x.BaseType != null) && !x.IsEnum && !x.IsInterface))
-        {
-            if(type.Name == "FormConvertImage")
-                ProcessMethods(type);
-        }
+        Console.WriteLine("Import Resources");
     }
 
     /// <summary>
@@ -64,13 +71,8 @@ public class ModuleWeaver
     {
         foreach (var method in type.Methods)
         {
-            if (method.Name == "LoadImage")
-            {
-                var di = "sda";
-            }
-
             // Skip for abstract and delegates
-            if (!method.HasBody)
+            if (!method.HasBody || method.IsRuntimeSpecialName)
             {
                 continue;
             }

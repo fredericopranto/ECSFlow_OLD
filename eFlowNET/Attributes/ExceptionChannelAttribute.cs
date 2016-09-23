@@ -1,7 +1,7 @@
 ﻿using ECSFlow.Attributes;
 using System;
-using System.Collections.Generic;
 
+[assembly: CLSCompliant(true)]
 namespace ECSFlow.Fody
 {
     /// <summary>

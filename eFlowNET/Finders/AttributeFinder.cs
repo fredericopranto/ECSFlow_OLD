@@ -21,63 +21,68 @@ namespace ECSFlow.Fody
             var customAttributes = method.CustomAttributes;
             CustomAttribute attr = null;
 
-            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionRaiseSiteAttribute"))
+            if (customAttributes.ContainsAttribute("ECSFlow.Fody.ExceptionRaiseSiteAttribute"))
             {
                 Raising = true;
             }
 
-            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionChannelAttribute", ref attr))
+            if (customAttributes.ContainsAttribute("ECSFlow.Fody.ExceptionChannelAttribute", ref attr))
             {
                 Channel = true;
 
-                // Look for Exceptions Types in ExceptionChannelAttribute
-                if (attr != null)
-                {
-                    Exceptions = new List<TypeReference>();
-                    CustomAttributeArgument[] args = (CustomAttributeArgument[])attr.ConstructorArguments[1].Value;
-                    foreach (var item in args)
-                    {
-                        Exceptions.Add((TypeReference)item.Value);
-                    }
-                }
-
-                //Import each Exception Type in current Module
-                foreach (var exception in Exceptions)
-                {
-                    var eFlowDefinition = ModuleDefinition.ReadModule(Assembly.GetExecutingAssembly().Location).Assembly;
-
-                    foreach (var reference in eFlowDefinition.MainModule.AssemblyReferences)
-                    {
-                        try
-                        {
-                            var systemName = AssemblyNameReference.Parse(reference.FullName);
-                            AssemblyDefinition system = new DefaultAssemblyResolver().Resolve(systemName);
-
-
-                            // Code to deep copy the reference assembly into the main assembly
-                            var importer = new TypeImporter(system.MainModule, method.Module.Assembly.MainModule);
-                            foreach (var definition in method.Module.Assembly.Modules.SelectMany(x => x.Types).ToArray())
-                            {
-                                importer.Import(definition);
-                            }
-
-                            var exceptionType = system.MainModule.GetTypes().First(x => x.Name == exception.Name);
-                            method.Module.ImportReference(exceptionType);
-                        }
-                        catch (Exception e) { Console.WriteLine(e.Message); };
-                    }
-                }
+                ImportExceptionTypesFromChannel(method, attr);
             }
 
-            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionHandlerAttribute"))
+            if (customAttributes.ContainsAttribute("ECSFlow.Fody.ExceptionHandlerAttribute"))
             {
                 Handler = true;
             }
 
-            if (customAttributes.ContainsAttribute("eFlowNET.Fody.ExceptionInterfaceAttribute"))
+            if (customAttributes.ContainsAttribute("ECSFlow.Fody.ExceptionInterfaceAttribute"))
             {
                 Interface = true;
             }
+        }
+
+        private void ImportExceptionTypesFromChannel(MethodDefinition method, CustomAttribute attr)
+        {
+            // Look for Exceptions Types in ExceptionChannelAttribute
+            if (attr != null)
+            {
+                Exceptions = new List<TypeReference>();
+                CustomAttributeArgument[] args = (CustomAttributeArgument[])attr.ConstructorArguments[1].Value;
+                foreach (var item in args)
+                {
+                    Exceptions.Add(method.Module.ImportReference(Type.GetType(item.Value.ToString())));
+                }
+            }
+
+            ////Import each Exception Type in current Module
+            //foreach (var exception in Exceptions)
+            //{
+            //    var eFlowDefinition = ModuleDefinition.ReadModule(Assembly.GetExecutingAssembly().Location).Assembly;
+
+            //    foreach (var reference in eFlowDefinition.MainModule.AssemblyReferences)
+            //    {
+            //        try
+            //        {
+            //            var systemName = AssemblyNameReference.Parse(reference.FullName);
+            //            AssemblyDefinition system = new DefaultAssemblyResolver().Resolve(systemName);
+
+
+            //            // Code to deep copy the reference assembly into the main assembly
+            //            var importer = new TypeImporter(system.MainModule, method.Module.Assembly.MainModule);
+            //            foreach (var definition in method.Module.Assembly.Modules.SelectMany(x => x.Types).ToArray())
+            //            {
+            //                importer.Import(definition);
+            //            }
+
+            //            var exceptionType = system.MainModule.GetTypes().First(x => x.Name == exception.Name);
+            //            method.Module.ImportReference(exceptionType);
+            //        }
+            //        catch (Exception e) { Console.WriteLine(e.Message); };
+            //    }
+            //}
         }
 
         public bool Swallow;
@@ -85,7 +90,6 @@ namespace ECSFlow.Fody
         public bool Channel;
         public bool Handler;
         public bool Interface;
-
-        public List<TypeReference> Exceptions { get ; set; }
+        public List<TypeReference> Exceptions = new List<TypeReference>();
     }
 }

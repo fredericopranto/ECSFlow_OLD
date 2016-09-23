@@ -99,9 +99,9 @@ namespace ECSFlow.Fody
 
                 if (MethodFinder.Found) // Surround with Try/Catch and Inject the proper handler
                 {
-                    var writeLineRef = Body.Method.Module.Assembly.MainModule.ImportReference(exceptionType);
+                    var methodRef = Body.Method.Module.ImportReference(MethodFinder.MethodDefinition);
 
-                    var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, MethodFinder.Method).ToList();
+                    var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, methodRef).ToList();
                     ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
                     ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
 
@@ -159,7 +159,7 @@ namespace ECSFlow.Fody
         /// </summary>
         /// <param name="catchBlockLeaveInstructions"></param>
         /// <returns></returns>
-        IEnumerable<Instruction> GetCatchInstructions(Instruction catchBlockLeaveInstructions, MethodDefinition def)
+        IEnumerable<Instruction> GetCatchInstructions(Instruction catchBlockLeaveInstructions, MethodReference def)
         {
             yield return Instruction.Create(OpCodes.Call, def);
             yield return Instruction.Create(OpCodes.Nop);
