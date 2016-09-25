@@ -2,6 +2,7 @@
 using Microsoft.Cci.Immutable;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -10,48 +11,62 @@ using TourreauGilles.CciExplorer.CSharp;
 
 namespace eFlowDriverNET
 {
-    public class FormConvertImage
+    /// <summary>
+    /// Class for generate exception flow paths
+    /// </summary>
+    public class ECSFlowDriverProcess
     {
         /// <summary>
         /// Método Main - Executa a aplicação
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            eFlow();
-            //eFlow2();
+            Console.WriteLine("Start process.");
+
+            var apps = ConfigurationManager.AppSettings["target"].ToString().Split(';');
+
+            foreach (var app in apps)
+            {
+                var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, string.Format(@"..\..\..\{0}\{0}.csproj", app)));
+                var assemblyPath = Path.GetDirectoryName(projectPath) + string.Format(@"\bin\Debug\{0}.exe",app);
+                var assemblyPathNoTry = Path.GetDirectoryName(projectPath) + string.Format(@"\bin\Debug\{0}2.exe", app);
+
+                eFlow(assemblyPath);
+                eFlow(assemblyPathNoTry);
+            }
+
+            
+
+            Console.WriteLine("Process completed.");
+            Console.Read();
         }
 
         /// <summary>
-        /// 
+        /// Generate flow path
         /// </summary>
-        private static void eFlow()
+        public static void eFlow(String assemblyPath)
         {
-            //var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
-            //var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
-
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
-            var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
-
             MetadataReaderHost module = new PeReader.DefaultHost();
             var assembly = module.LoadUnitFrom(assemblyPath) as IModule;
 
             //foreach (IAssemblyReference reference in assembly.AssemblyReferences)
-            //    assembly = module.LoadAssembly(assembly.CoreAssemblySymbolicIdentity);
+            //assembly = module.LoadAssembly(assembly.CoreAssemblySymbolicIdentity);
 
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(assemblyPath);
+            FileInfo fileInfo = new FileInfo(assemblyPath);
             DateTime lastModified = fileInfo.LastWriteTime;
 
             eFlowAssembly eFlowAssembly = new eFlowAssembly();
-            //eFlowAssembly.Assembly = assembly;
             eFlowAssembly.Name = assembly.Name.Value;
             eFlowAssembly.Version = assembly.ModuleIdentity.ContainingAssembly.Version.ToString();
             eFlowAssembly.CreatedAt = lastModified.ToString("yyyy-MM-dd HH:mm:ss.fff UTC");
-            //TODO: recuperar dinamicamente a linguagem do assembly
+            //TODO: get language dinamically
             eFlowAssembly.Language = "C#.NET";
             CSharpSourceGenerator Generator = new CSharpSourceGenerator(module, eFlowAssembly);
+            Console.WriteLine("Configure assembly:" + eFlowAssembly.Name);
 
-            //Referencias
+
+            //Add references
             foreach (IAssemblyReference reference in assembly.AssemblyReferences)
             {
                 eFlowAssembly newEFlowAssembly = new eFlowAssembly();
@@ -59,90 +74,47 @@ namespace eFlowDriverNET
                 newEFlowAssembly.Version = reference.ModuleIdentity.ContainingAssembly.Version.ToString();
                 newEFlowAssembly.Language = "C#.NET";
                 eFlowAssembly.Assemblies.Add(newEFlowAssembly);
+                Console.WriteLine("New assembly reference: " + newEFlowAssembly.Name);
             }
 
-            // Inspeciona o Assembly
+            // Assembly Visit
             Generator.Visit(assembly);
-            
-            // Gera fluxos das chamadas dos métodos
+
+            // Generate methods calls
             GenerateMethodCalls(eFlowAssembly);
 
-            // Serializa Objeto
-            string xml = XmlSerializeObject(eFlowAssembly);
-
-
-            //Java Method Call
-            //string novoxml = new global::Main().getReferencedXMLPublic(xml);
-            
-            
-            //string xml = DataContractSerializeObject(eFlowAssembly);
-            
-            //string json = JsonConvert.SerializeObject(eFlowAssembly);
-            //string xml = JsonConvert.DeserializeXNode(json, "Root").ToString();
-
-            //var jsonSerializer = new JsonSerializer
-            //{
-            //    NullValueHandling = NullValueHandling.Ignore,
-            //    MissingMemberHandling = MissingMemberHandling.Ignore,
-            //    ReferenceLoopHandling = ReferenceLoopHandling.Serialize
-            //};
-            //var sb = new StringBuilder();
-            //using (var sw = new StringWriter(sb))
-            //using (var jtw = new JsonTextWriter(sw))
-            //    jsonSerializer.Serialize(jtw, eFlowAssembly);
-            //string json  = sb.ToString();
-            //string xml = JsonConvert.DeserializeXNode(json, "Root").ToString();
-            
-            XmlDocument origXml = new XmlDocument();
-            origXml.LoadXml(xml);
-            XmlDocument newXml = new XmlDocument();
-            newXml.LoadXml("<list></list>");
-            XmlNode rootNode = newXml.ImportNode(origXml.DocumentElement, true);
-            newXml.DocumentElement.AppendChild(rootNode);
-            newXml.Save(String.Join(string.Empty, @"..\..\Output\", eFlowAssembly.Name, "-", eFlowAssembly.Version, ".xml"));
+            // Generate output xml files
+            GenerateOutputResults(eFlowAssembly);
         }
 
         /// <summary>
-        /// 
+        /// Generate an xml file with exception flow paths
         /// </summary>
-        private static void eFlow2()
+        /// <param name="eFlowAssembly"></param>
+        private static void GenerateOutputResults(eFlowAssembly eFlowAssembly)
         {
-            //string assemblyLocator = @"..\..\Input\Ionic.Zip.dll";
-            string assemblyLocator = @"..\..\Input\ClassLibraryExemplo.dll";
-            MetadataReaderHost module = new PeReader.DefaultHost();
-            var assembly = module.LoadUnitFrom(assemblyLocator) as IModule;
-
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(assemblyLocator);
-            DateTime lastModified = fileInfo.LastWriteTime;
-
-            eFlowAssembly eFlowAssembly = new eFlowAssembly();
-            eFlowAssembly.Name = assembly.Name.Value;
-            eFlowAssembly.Version = assembly.ModuleIdentity.ContainingAssembly.Version.ToString();
-            eFlowAssembly.CreatedAt = lastModified.ToUniversalTime().ToString();
-            //TODO: recuperar dinamicamente a linguagem do assembly
-            eFlowAssembly.Language = "C#.NET";
-
-            ProcessAssembly(assembly, ref eFlowAssembly);
-
+            // Object Serializer
             string xml = XmlSerializeObject(eFlowAssembly);
-            //string xml = DataContractSerializeObject(eFlowAssembly);
-
             XmlDocument origXml = new XmlDocument();
             origXml.LoadXml(xml);
-            XmlDocument newXml = new XmlDocument();
-            newXml.LoadXml("<list></list>");
-            XmlNode rootNode = newXml.ImportNode(origXml.DocumentElement, true);
-            newXml.DocumentElement.AppendChild(rootNode);
-            newXml.Save(String.Join(string.Empty, @"..\..\Output\", eFlowAssembly.Name, "-", eFlowAssembly.Version, "2.xml"));
 
+            // Xml exception flow paths
+            XmlDocument xmlFlowPath= new XmlDocument();
+            xmlFlowPath.LoadXml("<list></list>");
+            xmlFlowPath.DocumentElement.AppendChild(xmlFlowPath.ImportNode(origXml.DocumentElement, true));
+            xmlFlowPath.Save(String.Join(string.Empty, @"..\..\Output\", eFlowAssembly.Name, ".xml"));
+            Console.WriteLine("Xml file created:" + xmlFlowPath.Name) ;
+            
         }
+
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        private static bool IsGeneric(ITypeReference ExceptionType)
+        public static bool IsGeneric(ITypeReference ExceptionType)
         {
             if (ExceptionType.ResolvedType.ToString() == "Exception" ||
                 ExceptionType.ResolvedType.ToString() == "SystemException" ||
@@ -159,7 +131,7 @@ namespace eFlowDriverNET
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        private static string KindType(INamedTypeDefinition t)
+        public static string KindType(INamedTypeDefinition t)
         {
             string str = "";
 
@@ -198,7 +170,7 @@ namespace eFlowDriverNET
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="eFlowAssembly"></param>
-        private static void ProcessAssembly(IModule assembly, ref eFlowAssembly eFlowAssembly)
+        public static void ProcessAssembly(IModule assembly, ref eFlowAssembly eFlowAssembly)
         {
             try
             {
@@ -329,7 +301,7 @@ namespace eFlowDriverNET
         /// </summary>
         /// <param name="eFlowAssembly"></param>
         /// <returns></returns>
-        private static string XmlSerializeObject(eFlowAssembly eFlowAssembly)
+        public static string XmlSerializeObject(eFlowAssembly eFlowAssembly)
         {
             var stringwriter = new System.IO.StringWriter();
             var serializer = new XmlSerializer(typeof(eFlowAssembly));
@@ -345,7 +317,7 @@ namespace eFlowDriverNET
         /// <typeparam name="T"></typeparam>
         /// <param name="objectToSerialize"></param>
         /// <returns></returns>
-        private static string DataContractSerializeObject<T>(T objectToSerialize)
+        public static string DataContractSerializeObject<T>(T objectToSerialize)
         {
             using (var output = new StringWriter())
             using (var writer = new XmlTextWriter(output) { Formatting = System.Xml.Formatting.Indented })
@@ -385,10 +357,10 @@ namespace eFlowDriverNET
         }
 
         /// <summary>
-        /// Captura as chamadas de métodos dentros dos Try/Catch/Finally
+        /// Get methods calls in exception flow
         /// </summary>
-        /// <param name="eFlowAssembly"></param>
-        private static void GenerateMethodCalls(eFlowAssembly eFlowAssembly)
+        /// <param name="eFlowAssembly">Assembly to inspect methods calls</param>
+        public static void GenerateMethodCalls(eFlowAssembly eFlowAssembly)
         {
             foreach (var type in eFlowAssembly.Types)
             {
@@ -419,6 +391,7 @@ namespace eFlowDriverNET
                                         eFlowMethodCall.OffSet = op.Offset.ToString();
                                         eFlowMethodCall.Order = opIndex.ToString();
                                         eFlowAssembly.MethodCalls.Add(eFlowMethodCall);
+                                        Console.WriteLine("Method call found:" + method);
                                         break;
                                     }
                                 }
@@ -487,19 +460,20 @@ namespace eFlowDriverNET
         }
 
         /// <summary>
-        /// 
+        /// Generate exception information
         /// </summary>
-        /// <param name="m"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        private static void GenerateExceptionInformation(IMethodDefinition m, MyPlatformType p, ref eFlowMethod eFlowMethod, ref eFlowAssembly eFlowAssembly)
+        /// <param name="method"></param>
+        /// <param name="plataformType"></param>
+        /// <param name="eFlowMethod"></param>
+        /// <param name="eFlowAssembly"></param>
+        public static void GenerateExceptionInformation(IMethodDefinition method, MyPlatformType plataformType, ref eFlowMethod eFlowMethod, ref eFlowAssembly eFlowAssembly)
         {
             bool lastInstructionWasNewObj = false;
             IMethodReference consRef = null;
             eFlowMethodException eFlowMethodException;
 
-            // Procura as exceções das instruções Catch
-            foreach (IOperationExceptionInformation OperationException in m.Body.OperationExceptionInformation)
+            // Search for exception in Catch Block
+            foreach (IOperationExceptionInformation OperationException in method.Body.OperationExceptionInformation)
             {
                 switch (OperationException.HandlerKind)
                 {
@@ -511,6 +485,7 @@ namespace eFlowDriverNET
                         eFlowMethodException.Kind = OperationException.HandlerKind.ToString();
                         eFlowMethodException.IsGeneric = IsGeneric(OperationException.ExceptionType);
                         eFlowMethod.MethodExceptions.Add(eFlowMethodException);
+                        Console.WriteLine("Method Exception call found:" + eFlowMethodException.ToString());
                         break;
                     case HandlerKind.Finally:
                         eFlowMethodException = new eFlowMethodException();
@@ -521,12 +496,13 @@ namespace eFlowDriverNET
                         eFlowMethodException.Kind = OperationException.HandlerKind.ToString();
                         eFlowMethodException.IsGeneric = IsGeneric(OperationException.ExceptionType);
                         eFlowMethod.MethodExceptions.Add(eFlowMethodException);
+                        Console.WriteLine("Method Exception call found:" + eFlowMethodException.ToString());
                         break;
                     default:
                         throw new Exception("Tratar HandlerKind");
                 }
 
-                // Registra a Exception no assembly
+                // Register in eFlow Exceptions Types
                 if (OperationException.HandlerKind != HandlerKind.Finally)
                     if (eFlowAssembly.Exceptions.FindAll(e => e.Name.Equals(Type.GetType(OperationException.ExceptionType.ResolvedType.ToString()))).Count == 0)
                         eFlowAssembly.Exceptions.Add(new eFlowException(Type.GetType(OperationException.ExceptionType.ResolvedType.ToString())));
@@ -534,7 +510,7 @@ namespace eFlowDriverNET
 
             //TODO: Identificar o bloco de cada Throw
             // Procura as instruções Throw em todos os blocos
-            foreach (IOperation Operation in m.Body.Operations)
+            foreach (IOperation Operation in method.Body.Operations)
             {
                 if (Operation.OperationCode == OperationCode.Newobj)
                 {
@@ -553,6 +529,7 @@ namespace eFlowDriverNET
 
                     lastInstructionWasNewObj = false;
 
+                    // Register in eFlow Exceptions Types
                     if (eFlowAssembly.Exceptions.FindAll(e => e.Name.Equals(Type.GetType(consRef.ContainingType.ResolvedType.ToString()))).Count == 0)
                         eFlowAssembly.Exceptions.Add(new eFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString())));
 
@@ -570,6 +547,7 @@ namespace eFlowDriverNET
 
                     lastInstructionWasNewObj = false;
 
+                    // Register in eFlow Exceptions Types
                     if (eFlowAssembly.Exceptions.FindAll(e => e.Name.Equals(Type.GetType(consRef.ContainingType.ResolvedType.ToString()))).Count == 0)
                         eFlowAssembly.Exceptions.Add(new eFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString())));
 
@@ -585,7 +563,7 @@ namespace eFlowDriverNET
         /// <summary>
         /// 
         /// </summary>
-        internal class MyPlatformType : PlatformType
+        public class MyPlatformType : PlatformType
         {
             INamespaceTypeReference systemException;
             INamespaceTypeReference exception;

@@ -1556,7 +1556,7 @@ namespace TourreauGilles.CciExplorer.CSharp
 
                         if (SuperStatement.CatchClauses.Count() > 0)
                         {
-                            VisitCatchClause(ref qtdCatch, ref qtdCatchGeneric, ref qtdCatchSpecialized, ref qtdThrowCatch, SuperStatement);
+                            VisitCatchClause(ref qtdCatchGeneric, ref qtdCatchSpecialized, ref qtdThrowCatch, SuperStatement);
                         }
 
 
@@ -1565,12 +1565,18 @@ namespace TourreauGilles.CciExplorer.CSharp
             }
 
             eFlowMethod method = this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>();
-            method.QtdCatch = qtdCatch;
+            method.QtdTry = qtdTry;
             method.QtdCatchGeneric = qtdCatchGeneric;
             method.QtdCatchSpecialized = qtdCatchSpecialized;
             method.QtdFinally = qtdFinally;
             method.QtdThrow = qtdThrowTry + qtdThrowCatch + qtdThrowFinally;
-            method.QtdTry = qtdTry;
+
+            this.eFlowAssembly.TryCount += method.QtdTry;
+            this.eFlowAssembly.CatchGenericCount += method.QtdCatchGeneric;
+            this.eFlowAssembly.CatchSpecializedCount += method.QtdCatchSpecialized;
+            this.eFlowAssembly.FinallyCount += method.QtdFinally;
+            this.eFlowAssembly.ThrowCount += method.QtdThrow;
+
 
             //TODO: comentado
             //base.Visit(block);
@@ -1651,13 +1657,10 @@ namespace TourreauGilles.CciExplorer.CSharp
             }
         }
 
-        private void VisitCatchClause(ref int qtdCatch, ref int qtdCatchGeneric, ref int qtdCatchSpecialized, ref int qtdThrowCatch, ITryCatchFinallyStatement SuperStatement)
+        private void VisitCatchClause(ref int qtdCatchGeneric, ref int qtdCatchSpecialized, ref int qtdThrowCatch, ITryCatchFinallyStatement SuperStatement)
         {
             foreach (ICatchClause catchClause in SuperStatement.CatchClauses)
             {
-                // Contabiliza os blocos Catch e seus tipos 
-                qtdCatch++;
-
                 // Captura e registra as exceções dos Catchs (>> Inicio Catch Log)
                 Type ExceptionCatch;
                 eFlowMethodException eFlowMethodException = new eFlowMethodException();

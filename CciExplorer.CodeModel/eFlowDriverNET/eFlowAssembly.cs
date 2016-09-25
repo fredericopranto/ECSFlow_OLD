@@ -20,6 +20,21 @@ namespace eFlowDriverNET
         public string Language { get; set; }
         [XmlElement("analyzer")]
         public bool Analyzer { get; set; }
+        [XmlElement("tryCount")]
+        public int TryCount { get; set; }
+        [XmlElement("catchCount")]
+        public int CatchCount
+        {   get {   return CatchGenericCount + CatchSpecializedCount;} }
+        [XmlElement("catchGenericCount")]
+        [XmlIgnore]
+        public int CatchGenericCount { get; set; }
+        [XmlElement("catchSpecializedCount")]
+        [XmlIgnore]
+        public int CatchSpecializedCount { get; set; }
+        [XmlElement("throwCount")]
+        public int ThrowCount { get; set; }
+        [XmlElement("finallyCount")]
+        public int FinallyCount { get; set; }
         [XmlIgnore]
         public IModule Assembly { get; set; }
 

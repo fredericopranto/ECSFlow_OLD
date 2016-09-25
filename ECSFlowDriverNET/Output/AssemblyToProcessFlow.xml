@@ -1,0 +1,119 @@
+<list>
+  <assembly>
+    <name>AssemblyToProcessFlow</name>
+    <version>1.0.0.0</version>
+    <createdAt>2016-09-23 13:41:37.594 UTC</createdAt>
+    <language>C#.NET</language>
+    <analyzer>false</analyzer>
+    <tryCount>1</tryCount>
+    <throwCount>1</throwCount>
+    <finallyCount>0</finallyCount>
+    <exceptions>
+      <exception>
+        <name>System.OutOfMemoryException</name>
+        <basename>System.SystemException</basename>
+      </exception>
+    </exceptions>
+    <types>
+      <type>
+        <name>Program</name>
+        <fullName>AssemblyToProcessFlow.Program</fullName>
+        <kind>class</kind>
+        <methods>
+          <method>
+            <name>Void Program..ctor()</name>
+            <fullName>System.Void AssemblyToProcessFlow.Program..ctor()</fullName>
+            <visibility>public</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>Void Program.Main(String[])</name>
+            <fullName>System.Void AssemblyToProcessFlow.Program.Main(System.String[])</fullName>
+            <visibility>private</visibility>
+            <qtdTry>0</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>0</qtdCatchSpecialized>
+            <qtdThrow>0</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions />
+          </method>
+          <method>
+            <name>Void Program.SomeMethod()</name>
+            <fullName>System.Void AssemblyToProcessFlow.Program.SomeMethod()</fullName>
+            <visibility>public</visibility>
+            <qtdTry>1</qtdTry>
+            <qtdCatch>0</qtdCatch>
+            <qtdCatchGeneric>0</qtdCatchGeneric>
+            <qtdCatchSpecialized>1</qtdCatchSpecialized>
+            <qtdThrow>1</qtdThrow>
+            <qtdFinally>0</qtdFinally>
+            <methodExceptions>
+              <methodException>
+                <kind>Try</kind>
+                <isGeneric>false</isGeneric>
+                <startOffSet>0</startOffSet>
+                <endOffSet>10</endOffSet>
+              </methodException>
+              <methodException>
+                <kind>Catch</kind>
+                <isGeneric>false</isGeneric>
+                <startOffSet>10</startOffSet>
+                <endOffSet>18</endOffSet>
+              </methodException>
+            </methodExceptions>
+          </method>
+        </methods>
+      </type>
+    </types>
+    <methodCalls>
+      <methodCall>
+        <methodSource>
+          <name>Void Program.Main(String[])</name>
+          <fullName>System.Void AssemblyToProcessFlow.Program.Main(System.String[])</fullName>
+          <visibility>private</visibility>
+          <qtdTry>0</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>0</qtdCatchSpecialized>
+          <qtdThrow>0</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions />
+        </methodSource>
+        <methodTarget>
+          <name>Void Program.SomeMethod()</name>
+          <fullName>System.Void AssemblyToProcessFlow.Program.SomeMethod()</fullName>
+          <visibility>public</visibility>
+          <qtdTry>1</qtdTry>
+          <qtdCatch>0</qtdCatch>
+          <qtdCatchGeneric>0</qtdCatchGeneric>
+          <qtdCatchSpecialized>1</qtdCatchSpecialized>
+          <qtdThrow>1</qtdThrow>
+          <qtdFinally>0</qtdFinally>
+          <methodExceptions>
+            <methodException>
+              <kind>Try</kind>
+              <isGeneric>false</isGeneric>
+              <startOffSet>0</startOffSet>
+              <endOffSet>10</endOffSet>
+            </methodException>
+            <methodException>
+              <kind>Catch</kind>
+              <isGeneric>false</isGeneric>
+              <startOffSet>10</startOffSet>
+              <endOffSet>18</endOffSet>
+            </methodException>
+          </methodExceptions>
+        </methodTarget>
+        <offSet>1</offSet>
+        <order>2</order>
+      </methodCall>
+    </methodCalls>
+  </assembly>
+</list>

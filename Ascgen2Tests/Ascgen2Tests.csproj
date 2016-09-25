@@ -80,7 +80,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ECSFlowAddin\ECSFlowAddin\ECSFlowAddin.csproj">
+    <ProjectReference Include="..\ECSFlowAddin\ECSFlowAddin\ECSFlowAddin.csproj">
       <Project>{c3578a7b-09a6-4444-9383-0deafa4958bd}</Project>
       <Name>ECSFlowAddin</Name>
     </ProjectReference>

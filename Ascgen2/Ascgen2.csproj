@@ -463,24 +463,24 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\eFlowNET\ECSFlow.csproj">
+    <ProjectReference Include="..\ECSFlow\ECSFlow.csproj">
       <Project>{f91ae2e6-1682-478d-8f7d-db33f98167ea}</Project>
       <Name>ECSFlow</Name>
     </ProjectReference>
     <ProjectReference Include="..\JMSoftware.Controls\JMSoftware.Controls.csproj">
-      <Project>{69E1D695-5C48-47A4-B8A7-01C43FE4BB40}</Project>
+      <Project>{69e1d695-5c48-47a4-b8a7-01c43fe4bb40}</Project>
       <Name>JMSoftware.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\JMSoftware.ImageHelper\JMSoftware.ImageHelper.csproj">
-      <Project>{052DA6A8-6309-4589-922A-28407F8A0DD0}</Project>
+      <Project>{052da6a8-6309-4589-922a-28407f8a0dd0}</Project>
       <Name>JMSoftware.ImageHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\JMSoftware.TextHelper\JMSoftware.TextHelper.csproj">
-      <Project>{11F3DCBE-CC36-4761-AF00-B8FC87AFB443}</Project>
+      <Project>{11f3dcbe-cc36-4761-af00-b8fc87afb443}</Project>
       <Name>JMSoftware.TextHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\JMSoftware.VersionChecking\JMSoftware.VersionChecking.csproj">
-      <Project>{4A100A8B-4510-42AF-901E-A72D840D2A91}</Project>
+      <Project>{4a100a8b-4510-42af-901e-a72d840d2a91}</Project>
       <Name>JMSoftware.VersionChecking</Name>
     </ProjectReference>
   </ItemGroup>

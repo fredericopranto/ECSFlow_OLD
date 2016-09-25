@@ -1,4 +1,5 @@
 ﻿using ECSFlow.Fody;
+using System.Windows.Forms;
 
 // Information about global exception handling specification
 
@@ -20,16 +21,15 @@ public struct AssemblyToProcessHander
 {
     public static void OutOfMemoryExceptionHandler(System.OutOfMemoryException e)
     {
-        System.Console.WriteLine("OutOfMemoryException caught");
-        System.Console.WriteLine(e.Message);
-        System.Console.Read();
+        MessageBox.Show("OutOfMemoryException caught");
+        MessageBox.Show(e.Message);
+        
     }
 
     public static void FileNotFoundExceptionHandler(System.IO.FileNotFoundException e)
     {
-        System.Console.WriteLine("FileNotFoundException caught");
-        System.Console.WriteLine(e.Message);
-        System.Console.Read();
+        MessageBox.Show("FileNotFoundException caught");
+        MessageBox.Show(e.Message);
     }
 }
 
