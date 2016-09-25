@@ -36,8 +36,6 @@ namespace eFlowDriverNET
                 eFlow(assemblyPathNoTry);
             }
 
-            
-
             Console.WriteLine("Process completed.");
             Console.Read();
         }

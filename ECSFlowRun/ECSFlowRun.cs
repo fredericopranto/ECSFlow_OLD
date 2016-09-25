@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -11,24 +12,28 @@ namespace ECSFlowRun
         {
             Console.WriteLine("Weaving starting...");
 
-
             //String command = @"C:\Doit.bat";
             //ProcessInfo = new ProcessStartInfo("cmd.exe", "/c " + command);
             //ExecuteILRepackMerge();
 
-            //var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\AssemblyToProcessFlow\AssemblyToProcessFlow.csproj"));
-            //var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"bin\Debug\AssemblyToProcessFlow.exe");
+            var apps = ConfigurationManager.AppSettings["target"].ToString().Split(';');
 
-            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
-            var assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
+            foreach (var app in apps)
+            {
+                var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, string.Format(@"..\..\..\{0}\{0}.csproj", app)));
+                var assemblyPath = Path.GetDirectoryName(projectPath) + string.Format(@"\bin\Debug\{0}.exe", app);
+                var assemblyPathNoTry = Path.GetDirectoryName(projectPath) + string.Format(@"\bin\Debug\{0}2.exe", app);
 
-            var newAssemblyPath = WeaverHelper.Weave(assemblyPath);
+                var newAssemblyPath = WeaverHelper.Weave(assemblyPath);
 
-            Verifier.Verify(assemblyPath, newAssemblyPath);
-            Console.WriteLine("Weaving verified");
+                Verifier.Verify(assemblyPath, newAssemblyPath);
+                Console.WriteLine("Weaving verified");
 
-            var assembly = Assembly.LoadFile(newAssemblyPath);
-            Console.WriteLine("New assembly created");
+                var assembly = Assembly.LoadFile(newAssemblyPath);
+                Console.WriteLine("New assembly created");
+            }
+
+            Console.WriteLine("Process completed.");
             Console.Read();
         }
 
