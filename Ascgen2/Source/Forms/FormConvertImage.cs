@@ -989,9 +989,6 @@ namespace JMSoftware.AsciiGeneratorDotNet
         /// </summary>
         /// <param name="imagePath">Path to the image</param>
         /// <returns>Did the image load correctly?</returns>
-        [ECSFlow.Fody.ExceptionRaiseSite("rSite1", "FormConvertImage.LoadImage")]
-        [ECSFlow.Fody.ExceptionChannel("EEC1", new string[] { "System.OutOfMemoryException" }, new string[] { "rSite1" })]
-        [ECSFlow.Fody.ExceptionChannel("EEC2", new string[] { "System.IO.FileNotFoundException" }, new string[] { "rSite1" })]
         public bool LoadImage(string imagePath)
         {
             if (!this.CloseImage())

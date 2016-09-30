@@ -50,7 +50,7 @@ namespace ECSFlow.Fody
             if (attr != null)
             {
                 Exceptions = new List<TypeReference>();
-                CustomAttributeArgument[] args = (CustomAttributeArgument[])attr.ConstructorArguments[1].Value;
+                CustomAttributeArgument[] args = (CustomAttributeArgument[])attr.ConstructorArguments[2].Value;
                 foreach (var item in args)
                 {
                     Exceptions.Add(method.Module.ImportReference(Type.GetType(item.Value.ToString())));

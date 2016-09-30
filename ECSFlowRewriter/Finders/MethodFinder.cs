@@ -13,12 +13,9 @@ namespace ECSFlow.Fody
         /// 
         /// </summary>
         /// <param name="exceptionType"></param>
-        public MethodFinder(TypeReference exceptionType)
+        public MethodFinder(TypeReference exceptionType, TypeDefinition MappingType)
         {
-            ModuleDefinition module = ModuleDefinition.ReadModule("ECSFlow.dll");
-            TypeDefinition type = module.Types.First(t => t.FullName == "AssemblyToProcessHander");
-
-            foreach (var methodRef in type.Methods)
+            foreach (var methodRef in MappingType.Methods)
             {
                 foreach (var par in methodRef.Parameters.ToList())
                 {
@@ -26,7 +23,7 @@ namespace ECSFlow.Fody
                     {
                         Found = true;
                         MethodDefinition = methodRef;
-                        TypeReference = type;
+                        TypeReference = MappingType;
                         MethodReference = methodRef.GetElementMethod();
                         Console.WriteLine("Method found");
                         break;

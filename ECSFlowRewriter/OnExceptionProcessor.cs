@@ -26,16 +26,15 @@ namespace ECSFlow.Fody
         {
             //If has no customattribute, not process
             if (Method.Resolve().CustomAttributes.Count > 0)
+            {}
+
+            ExceptionFinder = new ExceptionDefinitionFinder(Method);
+            if (!ExceptionFinder.Inpect)
             {
-                ExceptionFinder = new ExceptionDefinitionFinder(Method);
-                if (!ExceptionFinder.Inpect)
-                {
-                    return;
-                }
-
-                ContinueProcessing(ExceptionFinder);
-
+                return;
             }
+
+            ContinueProcessing(ExceptionFinder);
         }
 
         /// <summary>
@@ -63,17 +62,18 @@ namespace ECSFlow.Fody
             foreach (CustomAttribute item in customAttributes)
             {
                 Method.CustomAttributes.Add(item);
+                Method.Module.ImportReference(item.Constructor);
             }
         }
 
         /// <summary>
-        /// //todo: add finally block too
         ///  Surround current Method Body with Try/Catch
+        ///  If has a mapping of a proper handler add the custom method in catch block
+        ///  If dosen't, add a default method to show a message (for tests only)
         /// </summary>
         void SurroundBody(AttributeFinder attributeFinder)
         {
             Body = Method.Body;
-
             Body.SimplifyMacros();
 
             var ilProcessor = Body.GetILProcessor();
@@ -84,22 +84,30 @@ namespace ECSFlow.Fody
             };
             returnFixer.MakeLastStatementReturn();
 
+            // Create a basic Try/Cacth Block
             var tryBlockLeaveInstructions = Instruction.Create(OpCodes.Leave, returnFixer.NopBeforeReturn);
             var catchBlockLeaveInstructions = Instruction.Create(OpCodes.Leave, returnFixer.NopBeforeReturn);
 
+            // Get the first instruction to surround the Try/Catch Block
             var methodBodyFirstInstruction = GetMethodBodyFirstInstruction();
 
+            // Get the list of Exception Types guarded by the Explicit Channel
             if (attributeFinder.Exceptions.Count == 0)
                 attributeFinder.Exceptions.Add(ModuleWeaver.ExceptionType);
 
+            // Get mapping reference
+            ModuleDefinition ECSFlowModule = ModuleDefinition.ReadModule("ECSFlowRewriter.dll");
+            TypeDefinition MappingType = ECSFlowModule.Types.First(t => t.FullName == "AssemblyToProcessMapping");
+            
+            // Create a Catch Block for each Exception Type
             foreach (var exceptionType in attributeFinder.Exceptions)
             {
                 // Find the proper handler by exception type
-                MethodFinder = new MethodFinder(exceptionType);
+                MethodFinder = new MethodFinder(exceptionType, MappingType);
 
                 if (MethodFinder.Found) // Surround with Try/Catch and Inject the proper handler
                 {
-                    var methodRef = Body.Method.Module.ImportReference(MethodFinder.MethodDefinition);
+                    var methodRef = Body.Method.Module.ImportReference(MethodFinder.MethodReference);
 
                     var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, methodRef).ToList();
                     ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
@@ -116,7 +124,7 @@ namespace ECSFlow.Fody
 
                     Body.ExceptionHandlers.Add(handler);
                 }
-                else // Surround with Try/Catch and Inject the throws handler
+                else // Surround with Try/Catch and Inject the default handler
                 {
                     //TODO: Inject throws statement
                     var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions).ToList();

@@ -14,14 +14,16 @@ namespace ECSFlow.Fody
         public ExceptionHandlerAttribute handler;
         public string RaiseSiteName;
         public string RaiseSiteTarget;
+        public Type Type;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="RaiseSite Name"></param>
         /// <param name="RaiseSite Target"></param>
-        public ExceptionRaiseSiteAttribute(string RaiseSiteName, string RaiseSiteTarget)
+        public ExceptionRaiseSiteAttribute(Type Type, string RaiseSiteName, string RaiseSiteTarget)
         {
+            this.Type = Type;
             this.RaiseSiteName = RaiseSiteName;
             this.RaiseSiteTarget = RaiseSiteTarget;
         }

@@ -1,9 +1,4 @@
-﻿using ECSFlow.Fody;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace AssemblyToProcessFlow
 {
@@ -14,8 +9,8 @@ namespace AssemblyToProcessFlow
             SomeMethod();
         }
 
-        [ExceptionRaiseSite("rSite1", "Program.SomeMethod")]
-        [ExceptionChannel("EEC1", new string[] { "System.OutOfMemoryException" }, new string[] { "rSite1" })]
+        //[ExceptionRaiseSite("rSite1", "Program.SomeMethod")]
+        //[ExceptionChannel("EEC1", new string[] { "System.OutOfMemoryException" }, new string[] { "rSite1" })]
         public static void SomeMethod()
         {
             throw new OutOfMemoryException();
