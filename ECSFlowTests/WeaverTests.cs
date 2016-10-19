@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using Mono.Cecil;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ECSFlow;
 
 [TestClass]
 public class WeaverTests

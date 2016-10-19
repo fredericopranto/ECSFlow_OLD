@@ -1,10 +1,8 @@
 ﻿using Mono.Cecil;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
-namespace ECSFlow.Fody
+namespace ECSFlow.Finder
 {
     public class AttributeFinder
     {

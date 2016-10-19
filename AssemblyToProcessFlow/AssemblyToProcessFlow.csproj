@@ -54,6 +54,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ECSFlowAttributes\ECSFlowAttributes.csproj">
+      <Project>{7991B1DC-1DE8-4F5B-9AAA-C2CE5255E1D7}</Project>
+      <Name>ECSFlowAttributes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

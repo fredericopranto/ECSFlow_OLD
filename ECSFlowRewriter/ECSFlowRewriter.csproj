@@ -36,7 +36,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ArrayStoreException.cs" />
     <Compile Include="Finders\MethodFinder.cs" />
     <Compile Include="Finders\ExceptionDefinitionFinder.cs" />
     <Compile Include="Finders\AttributeFinder.cs" />

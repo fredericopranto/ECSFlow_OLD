@@ -48,6 +48,7 @@
     <Compile Include="ExceptionRaiseSiteAttribute.cs" />
     <Compile Include="HandlerDelegate.cs" />
     <Compile Include="IExceptionFlowAttribute.cs" />
+    <Compile Include="MethodAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

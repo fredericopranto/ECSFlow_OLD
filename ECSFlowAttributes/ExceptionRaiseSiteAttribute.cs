@@ -1,7 +1,7 @@
 ﻿using ECSFlow.Attributes;
 using System;
 
-namespace ECSFlow.Fody
+namespace ECSFlow.Attributes
 {
     /// <summary>
     /// If an <see cref="Exception"/> occurs in the applied method then flow it explicit.

@@ -1,7 +1,7 @@
 ﻿using ECSFlow.Attributes;
 using System;
 
-namespace ECSFlow.Fody
+namespace ECSFlow.Attributes
 {
     /// <summary>
     /// 

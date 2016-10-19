@@ -1,6 +1,7 @@
-﻿using System;
+﻿using ECSFlow.Attributes;
+using System;
 
-namespace AssemblyToProcessFlow
+namespace ECSFlow
 {
     class Program
     {
@@ -9,11 +10,10 @@ namespace AssemblyToProcessFlow
             SomeMethod();
         }
 
-        //[ExceptionRaiseSite("rSite1", "Program.SomeMethod")]
-        //[ExceptionChannel("EEC1", new string[] { "System.OutOfMemoryException" }, new string[] { "rSite1" })]
+        [MethodLogging]
         public static void SomeMethod()
         {
-            throw new OutOfMemoryException();
+            Console.WriteLine("SomeMethod Body");
         }
     }
 }

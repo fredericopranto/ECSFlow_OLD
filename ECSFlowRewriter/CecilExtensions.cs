@@ -4,7 +4,7 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Collections.Generic;
 
-namespace ECSFlow.Fody
+namespace ECSFlow
 {
     public static class CecilExtensions
     {

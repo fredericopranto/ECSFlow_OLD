@@ -1,9 +1,10 @@
-﻿using Mono.Cecil;
+﻿using ECSFlow.Attributes;
+using Mono.Cecil;
 using Mono.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace ECSFlow.Fody
+namespace ECSFlow.Finder
 {
     /// <summary>
     /// 
@@ -16,7 +17,7 @@ namespace ECSFlow.Fody
         /// <param name="Method"></param>
         public ExceptionDefinitionFinder(MethodDefinition Method)
         {
-            ModuleDefinition ECSFlowModule = ModuleDefinition.ReadModule("ECSFlowRewriter.dll");
+            ModuleDefinition ECSFlowModule = ModuleDefinition.ReadModule("ECSFlowAttributes.dll");
 
             IQueryable<CustomAttribute> rsites = from t in ECSFlowModule.Assembly.CustomAttributes.AsQueryable()
                                                  where t.AttributeType.Resolve().FullName == typeof(ExceptionRaiseSiteAttribute).FullName
@@ -60,9 +61,9 @@ namespace ECSFlow.Fody
 
             foreach (var item in matchChannel)
             {
-                //Inpect = true;
-                //CustomAttributes.Add(item);
-                //Console.WriteLine("Custom Attributes added" + matchChannel);
+                Inpect = true;
+                CustomAttributes.Add(item);
+                Console.WriteLine("Custom Attributes added" + matchChannel);
 
                 //MethodDefinition methodDefinition = Method;
                 //var module = methodDefinition.DeclaringType.Module;
