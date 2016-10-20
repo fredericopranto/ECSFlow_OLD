@@ -2,9 +2,9 @@
 using System.Linq;
 using Mono.Cecil;
 using System.Collections.Generic;
-using ECSFlow.Attributes;
+using ECSFlowAttributes;
 
-namespace ECSFlow
+namespace ECSFlowRewriter
 {
 
     /// <summary>

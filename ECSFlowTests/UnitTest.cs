@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using ECSFlow.Helper;
 
-namespace UnitTestProject
+namespace ECSFlowTests
 {
     [TestClass]
     public class UnitTest

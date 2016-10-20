@@ -1,4 +1,4 @@
-﻿namespace ECSFlow.Attributes
+﻿namespace ECSFlowAttributes
 {
     interface IECSFlowAttribute
     {

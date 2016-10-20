@@ -5,14 +5,14 @@ using Microsoft.Cci;
 using Microsoft.Cci.ILToCodeModel;
 using TourreauGilles.CciExplorer.CodeModel;
 using Microsoft.Cci.MutableCodeModel;
-using eFlowDriverNET;
+using ECSFlowDriverNET;
 
 namespace TourreauGilles.CciExplorer.CSharp
 {
     public class CSharpSourceGenerator : SourceVisitor
     {
         private readonly IMetadataReaderHost metadataHost;
-        private eFlowAssembly eFlowAssembly;
+        private ECSFlowAssembly eFlowAssembly;
         private const string ItemPropertyName = "Item";
         public IPlatformType PlatformType
         {
@@ -25,7 +25,7 @@ namespace TourreauGilles.CciExplorer.CSharp
             //this.writer = writer;
         }
 
-        public CSharpSourceGenerator(IMetadataReaderHost metadataHost, eFlowAssembly eFlowAssembly)
+        public CSharpSourceGenerator(IMetadataReaderHost metadataHost, ECSFlowAssembly eFlowAssembly)
         {
             this.metadataHost = metadataHost;
             this.eFlowAssembly = eFlowAssembly;
@@ -485,13 +485,13 @@ namespace TourreauGilles.CciExplorer.CSharp
         {
             foreach (IMethodDefinition method in methods)
             {
-                eFlowMethod eFlowMethod = new eFlowMethod();
+                ECSFlowMethod eFlowMethod = new ECSFlowMethod();
                 eFlowMethod.Name = MemberHelper.GetMethodSignature(method, NameFormattingOptions.OmitContainingNamespace | NameFormattingOptions.ReturnType | NameFormattingOptions.Signature);
                 eFlowMethod.FullName = method.ToString();
                 eFlowMethod.Visibility = GetVisibility(method);
                 eFlowMethod.MethodDefinition = method;
 
-                this.eFlowAssembly.Types.Last<eFlowType>().Methods.Add(eFlowMethod);
+                this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Add(eFlowMethod);
 
                 this.Visit(method);
             }
@@ -1186,7 +1186,7 @@ namespace TourreauGilles.CciExplorer.CSharp
         /// <param name="typeDefinition"></param>
         public override void Visit(ITypeDefinition typeDefinition)
         {
-            eFlowType eFlowType = new eFlowType();
+            ECSFlowType eFlowType = new ECSFlowType();
             eFlowType.Name = typeDefinition.GetDisplayName();
             eFlowType.FullName = typeDefinition.ToString();
             this.eFlowAssembly.Types.Add(eFlowType);
@@ -1435,15 +1435,15 @@ namespace TourreauGilles.CciExplorer.CSharp
 
             if (namedTypeDefinition.IsClass == true)
             {
-                this.eFlowAssembly.Types.Last<eFlowType>().Kind = CSharpLanguage.ClassToken;
+                this.eFlowAssembly.Types.Last<ECSFlowType>().Kind = CSharpLanguage.ClassToken;
             }
             else if (namedTypeDefinition.IsStruct == true)
             {
-                this.eFlowAssembly.Types.Last<eFlowType>().Kind = CSharpLanguage.StructToken;
+                this.eFlowAssembly.Types.Last<ECSFlowType>().Kind = CSharpLanguage.StructToken;
             }
             else if (namedTypeDefinition.IsInterface == true)
             {
-                this.eFlowAssembly.Types.Last<eFlowType>().Kind = CSharpLanguage.InterfaceToken;
+                this.eFlowAssembly.Types.Last<ECSFlowType>().Kind = CSharpLanguage.InterfaceToken;
             }
             else if (namedTypeDefinition.IsEnum == true)
             {
@@ -1564,7 +1564,7 @@ namespace TourreauGilles.CciExplorer.CSharp
                 }
             }
 
-            eFlowMethod method = this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>();
+            ECSFlowMethod method = this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Last<ECSFlowMethod>();
             method.QtdTry = qtdTry;
             method.QtdCatchGeneric = qtdCatchGeneric;
             method.QtdCatchSpecialized = qtdCatchSpecialized;
@@ -1609,7 +1609,7 @@ namespace TourreauGilles.CciExplorer.CSharp
             //            eFlowMethodExceptionTry.IsGeneric = ExceptionTry.Equals(typeof(Exception)) || ExceptionTry.Equals(typeof(Object));
             //            eFlowMethodExceptionTry.StartOffSet = ((Microsoft.Cci.ILToCodeModel.DecompiledBlock)(SuperStatement.TryBody)).StartOffset.ToString();
             //            eFlowMethodExceptionTry.EndOffSet = ((Microsoft.Cci.ILToCodeModel.DecompiledBlock)(SuperStatement.TryBody)).EndOffset.ToString();
-            //            this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>().MethodExceptions.Add(eFlowMethodExceptionTry);
+            //            this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Last<ECSFlowMethod>().MethodExceptions.Add(eFlowMethodExceptionTry);
             //        }
             //    }
             //}
@@ -1639,13 +1639,13 @@ namespace TourreauGilles.CciExplorer.CSharp
             foreach (ThrowStatement newThrow in ThrowsIntoTry)
             {
                 // Captura e registra as exceções dos Trys
-                eFlowMethodException eFlowMethodExceptionTry = new eFlowMethodException();
+                ECSFlowMethodException eFlowMethodExceptionTry = new ECSFlowMethodException();
                 Type ExceptionTry = Type.GetType(newThrow.Exception.Type.ToString());
                 if (ExceptionTry != null)
                 {
                     eFlowAssembly.RegisterException(ExceptionTry.ToString());
 
-                    eFlowException ExceptionReference = new eFlowException(ExceptionTry);
+                    ECSFlowException ExceptionReference = new ECSFlowException(ExceptionTry);
                     //eFlowMethodExceptionTry.ExceptionReference = ExceptionReference;
                 }
                 eFlowMethodExceptionTry.Kind = "Try";
@@ -1663,7 +1663,7 @@ namespace TourreauGilles.CciExplorer.CSharp
             {
                 // Captura e registra as exceções dos Catchs (>> Inicio Catch Log)
                 Type ExceptionCatch;
-                eFlowMethodException eFlowMethodException = new eFlowMethodException();
+                ECSFlowMethodException eFlowMethodException = new ECSFlowMethodException();
                 //"System.Data.DataTable, System.Data, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 //IUnit unit = (((Microsoft.Cci.MetadataReader.ObjectModelImplementation.NamespaceTypeRefReference)(catchClause.ExceptionType)).ContainingUnitNamespace).Unit;
                 ExceptionCatch = Type.GetType(String.Concat(catchClause.ExceptionType.ToString()));
@@ -1672,7 +1672,7 @@ namespace TourreauGilles.CciExplorer.CSharp
                 {
                     eFlowAssembly.RegisterException(catchClause.ExceptionType.ToString());
 
-                    eFlowException ExceptionReference = new eFlowException(ExceptionCatch);
+                    ECSFlowException ExceptionReference = new ECSFlowException(ExceptionCatch);
                     //eFlowMethodException.ExceptionReference = ExceptionReference;
                     if (ExceptionCatch.Equals(typeof(Exception)))
                         qtdCatchGeneric++;
@@ -1699,13 +1699,13 @@ namespace TourreauGilles.CciExplorer.CSharp
                 var HasThrowsIntoCatch = ThrowsIntoCatch.Count != 0;
                 if (!HasThrowsIntoCatch)
                 {
-                    this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>().MethodExceptions.Add(eFlowMethodException);
+                    this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Last<ECSFlowMethod>().MethodExceptions.Add(eFlowMethodException);
                 }
 
                 foreach (ThrowStatement newThrow in ThrowsIntoCatch)
                 {
                     // Captura e registra as exceções dos Throw dentro dos Catchs 
-                    eFlowMethodException eFlowMethodExceptionThrowIntoCatch = new eFlowMethodException();
+                    ECSFlowMethodException eFlowMethodExceptionThrowIntoCatch = new ECSFlowMethodException();
                     Type ExceptionCatchIntoCatch = Type.GetType(newThrow.Exception.Type.ToString());
                     if (ExceptionCatchIntoCatch != null)
                     {
@@ -1713,21 +1713,21 @@ namespace TourreauGilles.CciExplorer.CSharp
                         eFlowAttributeReference ExceptionReferenceThrowIntoCatch = new eFlowAttributeReference();
                         ExceptionReferenceThrowIntoCatch.Reference = 0;
 
-                        eFlowException ExceptionReference = new eFlowException(ExceptionCatch);
+                        ECSFlowException ExceptionReference = new ECSFlowException(ExceptionCatch);
                         //eFlowMethodExceptionThrowIntoCatch.ExceptionReference = ExceptionReference;
                     }
                     eFlowMethodExceptionThrowIntoCatch.Kind = "ThrowsIntoCatch";
                     eFlowMethodExceptionThrowIntoCatch.IsGeneric = ExceptionCatch.Equals(typeof(Exception));
                     eFlowMethodExceptionThrowIntoCatch.StartOffSet = ((Microsoft.Cci.ILToCodeModel.DecompiledBlock)(catchClause.Body)).StartOffset.ToString();
                     eFlowMethodExceptionThrowIntoCatch.EndOffSet = ((Microsoft.Cci.ILToCodeModel.DecompiledBlock)(catchClause.Body)).EndOffset.ToString();
-                    this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>().MethodExceptions.Add(eFlowMethodExceptionThrowIntoCatch);
+                    this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Last<ECSFlowMethod>().MethodExceptions.Add(eFlowMethodExceptionThrowIntoCatch);
 
                     // Adicionando a descrição do Throw do Catch (>> Finalização Catch Log)
                     // TODO: verificar se há como retornar mais de um throw dentro de um statement
                     eFlowThrowsIntoCatch eFlowThrowsIntoCatch = new eFlowThrowsIntoCatch();
                     eFlowThrowsIntoCatch.String = newThrow.Exception.Type.ToString();
                     //eFlowMethodException.ThrowsIntoCatch = eFlowThrowsIntoCatch;
-                    this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>().MethodExceptions.Add(eFlowMethodException);
+                    this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Last<ECSFlowMethod>().MethodExceptions.Add(eFlowMethodException);
                 }
 
                 qtdThrowCatch += ThrowsIntoCatch.Count;
@@ -1746,12 +1746,12 @@ namespace TourreauGilles.CciExplorer.CSharp
             foreach (ThrowStatement newThrow in ThrowsIntoFinally)
             {
                 // Captura e registra as exceções dos Catchs (>> Inicio Catch Log)
-                eFlowMethodException eFlowMethodExceptionFinally = new eFlowMethodException();
+                ECSFlowMethodException eFlowMethodExceptionFinally = new ECSFlowMethodException();
                 Type ExceptionFinally = Type.GetType(newThrow.Exception.Type.ToString());
                 if (ExceptionFinally != null)
                 {
                     eFlowAssembly.RegisterException(ExceptionFinally.ToString());
-                    eFlowException ExceptionReference = new eFlowException(ExceptionFinally);
+                    ECSFlowException ExceptionReference = new ECSFlowException(ExceptionFinally);
                     //eFlowMethodExceptionFinally.ExceptionReference = ExceptionReference;
                 }
                 eFlowMethodExceptionFinally.Kind = "Finally";
@@ -1760,7 +1760,7 @@ namespace TourreauGilles.CciExplorer.CSharp
 
                 eFlowMethodExceptionFinally.StartOffSet = ((Microsoft.Cci.ILToCodeModel.DecompiledBlock)(SuperStatement.FinallyBody)).StartOffset.ToString();
                 eFlowMethodExceptionFinally.EndOffSet = ((Microsoft.Cci.ILToCodeModel.DecompiledBlock)(SuperStatement.FinallyBody)).EndOffset.ToString();
-                this.eFlowAssembly.Types.Last<eFlowType>().Methods.Last<eFlowMethod>().MethodExceptions.Add(eFlowMethodExceptionFinally);
+                this.eFlowAssembly.Types.Last<ECSFlowType>().Methods.Last<ECSFlowMethod>().MethodExceptions.Add(eFlowMethodExceptionFinally);
             }
 
             // TODO: Nem sempre há statements tryCatchFilterFinallyStatement. Melhorar o código.

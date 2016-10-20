@@ -3,10 +3,10 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using Microsoft.Cci;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     [XmlRoot("method")]
-    public class eFlowMethod
+    public class ECSFlowMethod
     {
         [XmlElement("name")]
         public string Name { get; set; }
@@ -30,11 +30,11 @@ namespace eFlowDriverNET
         [IgnoreDataMemberAttribute]
         public IMethodDefinition MethodDefinition { get; set; }
 
-        private readonly List<eFlowMethodException> _MethodExceptions = new List<eFlowMethodException>();
+        private readonly List<ECSFlowMethodException> _MethodExceptions = new List<ECSFlowMethodException>();
 
         [XmlArray("methodExceptions")]
         [XmlArrayItem("methodException")]
-        public List<eFlowMethodException> MethodExceptions { get { return _MethodExceptions; } }
+        public List<ECSFlowMethodException> MethodExceptions { get { return _MethodExceptions; } }
 
     }
 }

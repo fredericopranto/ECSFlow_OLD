@@ -1,7 +1,7 @@
-﻿using ECSFlow.Attributes;
+﻿using ECSFlowAttributes;
 using System;
 
-namespace ECSFlow.Attributes
+namespace ECSFlowAttributes
 {
     /// <summary>
     /// An explicit exception channel (channel, for short) is an abstract duct through which exceptions 

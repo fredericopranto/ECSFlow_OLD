@@ -1,4 +1,4 @@
-﻿using ECSFlow.Attributes;
+﻿using ECSFlowAttributes;
 using System.Windows.Forms;
 
 [assembly: ExceptionRaiseSite(typeof(AssemblyToProcessMapping), "rSite1", "Program.Main")]

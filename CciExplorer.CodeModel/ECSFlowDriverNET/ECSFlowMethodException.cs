@@ -1,9 +1,9 @@
 ﻿using System.Xml.Serialization;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     [XmlRoot("methodException")]
-    public class eFlowMethodException
+    public class ECSFlowMethodException
     {
         //[XmlElement("throwsIntoCatch")]
         //public eFlowThrowsIntoCatch ThrowsIntoCatch { get; set; }

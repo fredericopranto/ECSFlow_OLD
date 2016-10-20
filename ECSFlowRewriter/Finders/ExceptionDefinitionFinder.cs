@@ -1,10 +1,10 @@
-﻿using ECSFlow.Attributes;
+﻿using ECSFlowAttributes;
 using Mono.Cecil;
 using Mono.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace ECSFlow.Finder
+namespace ECSFlowRewriter
 {
     /// <summary>
     /// 

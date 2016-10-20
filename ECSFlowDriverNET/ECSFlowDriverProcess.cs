@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using TourreauGilles.CciExplorer.CSharp;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     /// <summary>
     /// Class for generate exception flow paths
@@ -54,7 +54,7 @@ namespace eFlowDriverNET
             FileInfo fileInfo = new FileInfo(assemblyPath);
             DateTime lastModified = fileInfo.LastWriteTime;
 
-            eFlowAssembly eFlowAssembly = new eFlowAssembly();
+            ECSFlowAssembly eFlowAssembly = new ECSFlowAssembly();
             eFlowAssembly.Name = assembly.Name.Value;
             eFlowAssembly.Version = assembly.ModuleIdentity.ContainingAssembly.Version.ToString();
             eFlowAssembly.CreatedAt = lastModified.ToString("yyyy-MM-dd HH:mm:ss.fff UTC");
@@ -67,7 +67,7 @@ namespace eFlowDriverNET
             //Add references
             foreach (IAssemblyReference reference in assembly.AssemblyReferences)
             {
-                eFlowAssembly newEFlowAssembly = new eFlowAssembly();
+                ECSFlowAssembly newEFlowAssembly = new ECSFlowAssembly();
                 newEFlowAssembly.Name = reference.Name.ToString();
                 newEFlowAssembly.Version = reference.ModuleIdentity.ContainingAssembly.Version.ToString();
                 newEFlowAssembly.Language = "C#.NET";
@@ -89,7 +89,7 @@ namespace eFlowDriverNET
         /// Generate an xml file with exception flow paths
         /// </summary>
         /// <param name="eFlowAssembly"></param>
-        private static void GenerateOutputResults(eFlowAssembly eFlowAssembly)
+        private static void GenerateOutputResults(ECSFlowAssembly eFlowAssembly)
         {
             // Object Serializer
             string xml = XmlSerializeObject(eFlowAssembly);
@@ -168,7 +168,7 @@ namespace eFlowDriverNET
         /// </summary>
         /// <param name="assembly"></param>
         /// <param name="eFlowAssembly"></param>
-        public static void ProcessAssembly(IModule assembly, ref eFlowAssembly eFlowAssembly)
+        public static void ProcessAssembly(IModule assembly, ref ECSFlowAssembly eFlowAssembly)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace eFlowDriverNET
                 //Referencias
                 foreach (IAssemblyReference reference in assembly.AssemblyReferences)
                 {
-                    eFlowAssembly newEFlowAssembly = new eFlowAssembly();
+                    ECSFlowAssembly newEFlowAssembly = new ECSFlowAssembly();
                     newEFlowAssembly.Name = reference.Name.ToString();
                     newEFlowAssembly.Version = reference.ModuleIdentity.ContainingAssembly.Version.ToString();
                     newEFlowAssembly.Language = "C#.NET";
@@ -201,7 +201,7 @@ namespace eFlowDriverNET
                 {
                     if (type.Name.Value.Equals("<Module>"))
                         continue;
-                    eFlowType eFlowType = new eFlowType();
+                    ECSFlowType eFlowType = new ECSFlowType();
                     eFlowType.Name = type.Name.Value;
                     eFlowType.FullName = type.ToString();
                     eFlowType.Kind = KindType(type);
@@ -209,7 +209,7 @@ namespace eFlowDriverNET
                     //percorre os metodos
                     foreach (IMethodDefinition method in type.Methods)
                     {
-                        eFlowMethod eFlowMethod = new eFlowMethod();
+                        ECSFlowMethod eFlowMethod = new ECSFlowMethod();
                         eFlowMethod.Name = method.Name.Value;
                         eFlowMethod.FullName = MemberHelper.GetMethodSignature(method, NameFormattingOptions.OmitContainingNamespace | NameFormattingOptions.ReturnType | NameFormattingOptions.Signature);
                         eFlowMethod.Visibility = method.Visibility.ToString();
@@ -222,7 +222,7 @@ namespace eFlowDriverNET
                         if (!method.IsCil)
                             continue;
 
-                        List<eFlowMethodException> eFlowMethodExceptions = new List<eFlowMethodException>();
+                        List<ECSFlowMethodException> eFlowMethodExceptions = new List<ECSFlowMethodException>();
 
                         GenerateExceptionInformation(method, myPlatformType, ref eFlowMethod, ref eFlowAssembly);
 
@@ -299,10 +299,10 @@ namespace eFlowDriverNET
         /// </summary>
         /// <param name="eFlowAssembly"></param>
         /// <returns></returns>
-        public static string XmlSerializeObject(eFlowAssembly eFlowAssembly)
+        public static string XmlSerializeObject(ECSFlowAssembly eFlowAssembly)
         {
             var stringwriter = new System.IO.StringWriter();
-            var serializer = new XmlSerializer(typeof(eFlowAssembly));
+            var serializer = new XmlSerializer(typeof(ECSFlowAssembly));
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces(); ns.Add("", "");
             serializer.Serialize(stringwriter, eFlowAssembly, ns);
             string xml = stringwriter.ToString();
@@ -358,7 +358,7 @@ namespace eFlowDriverNET
         /// Get methods calls in exception flow
         /// </summary>
         /// <param name="eFlowAssembly">Assembly to inspect methods calls</param>
-        public static void GenerateMethodCalls(eFlowAssembly eFlowAssembly)
+        public static void GenerateMethodCalls(ECSFlowAssembly eFlowAssembly)
         {
             foreach (var type in eFlowAssembly.Types)
             {
@@ -378,12 +378,12 @@ namespace eFlowDriverNET
                                 
                                 foreach (var item in eFlowAssembly.Types)
                                 {
-                                    eFlowMethod eFlowMethodReference = new eFlowMethod();
+                                    ECSFlowMethod eFlowMethodReference = new ECSFlowMethod();
                                     eFlowMethodReference = item.Methods.Find(m => m.FullName.Equals(op.Value.ToString()));
 
                                     if (eFlowMethodReference != null)
                                     {
-                                        eFlowMethodCall eFlowMethodCall = new eFlowMethodCall();
+                                        ECSFlowMethodCall eFlowMethodCall = new ECSFlowMethodCall();
                                         eFlowMethodCall.MethodSource = method;
                                         eFlowMethodCall.MethodTarget = eFlowMethodReference;
                                         eFlowMethodCall.OffSet = op.Offset.ToString();
@@ -464,11 +464,11 @@ namespace eFlowDriverNET
         /// <param name="plataformType"></param>
         /// <param name="eFlowMethod"></param>
         /// <param name="eFlowAssembly"></param>
-        public static void GenerateExceptionInformation(IMethodDefinition method, MyPlatformType plataformType, ref eFlowMethod eFlowMethod, ref eFlowAssembly eFlowAssembly)
+        public static void GenerateExceptionInformation(IMethodDefinition method, MyPlatformType plataformType, ref ECSFlowMethod eFlowMethod, ref ECSFlowAssembly eFlowAssembly)
         {
             bool lastInstructionWasNewObj = false;
             IMethodReference consRef = null;
-            eFlowMethodException eFlowMethodException;
+            ECSFlowMethodException eFlowMethodException;
 
             // Search for exception in Catch Block
             foreach (IOperationExceptionInformation OperationException in method.Body.OperationExceptionInformation)
@@ -476,7 +476,7 @@ namespace eFlowDriverNET
                 switch (OperationException.HandlerKind)
                 {
                     case HandlerKind.Catch:
-                        eFlowMethodException = new eFlowMethodException();
+                        eFlowMethodException = new ECSFlowMethodException();
                         //eFlowMethodException.ExceptionReference = new eFlowException(Type.GetType(OperationException.ExceptionType.ResolvedType.ToString()));
                         eFlowMethodException.StartOffSet = OperationException.HandlerStartOffset.ToString();
                         eFlowMethodException.EndOffSet = OperationException.HandlerEndOffset.ToString();
@@ -486,7 +486,7 @@ namespace eFlowDriverNET
                         Console.WriteLine("Method Exception call found:" + eFlowMethodException.ToString());
                         break;
                     case HandlerKind.Finally:
-                        eFlowMethodException = new eFlowMethodException();
+                        eFlowMethodException = new ECSFlowMethodException();
                         //TODO: Identificar o tipo do Throw do bloco Finally
                         //eFlowMethodException.ExceptionReference = new eFlowException(Type.GetType(ope.ExceptionType.ResolvedType.ToString()));
                         eFlowMethodException.StartOffSet = OperationException.TryStartOffset.ToString();
@@ -503,7 +503,7 @@ namespace eFlowDriverNET
                 // Register in eFlow Exceptions Types
                 if (OperationException.HandlerKind != HandlerKind.Finally)
                     if (eFlowAssembly.Exceptions.FindAll(e => e.Name.Equals(Type.GetType(OperationException.ExceptionType.ResolvedType.ToString()))).Count == 0)
-                        eFlowAssembly.Exceptions.Add(new eFlowException(Type.GetType(OperationException.ExceptionType.ResolvedType.ToString())));
+                        eFlowAssembly.Exceptions.Add(new ECSFlowException(Type.GetType(OperationException.ExceptionType.ResolvedType.ToString())));
             }
 
             //TODO: Identificar o bloco de cada Throw
@@ -517,7 +517,7 @@ namespace eFlowDriverNET
                 }
                 else if (lastInstructionWasNewObj && Operation.OperationCode == OperationCode.Throw)
                 {
-                    eFlowMethodException = new eFlowMethodException();
+                    eFlowMethodException = new ECSFlowMethodException();
                     //eFlowMethodException.ExceptionReference = new eFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString()));
                     eFlowMethodException.StartOffSet = Operation.Offset.ToString();
                     eFlowMethodException.EndOffSet = Operation.Offset.ToString();
@@ -529,13 +529,13 @@ namespace eFlowDriverNET
 
                     // Register in eFlow Exceptions Types
                     if (eFlowAssembly.Exceptions.FindAll(e => e.Name.Equals(Type.GetType(consRef.ContainingType.ResolvedType.ToString()))).Count == 0)
-                        eFlowAssembly.Exceptions.Add(new eFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString())));
+                        eFlowAssembly.Exceptions.Add(new ECSFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString())));
 
                     eFlowMethod.QtdThrow++;
                 }
                 else if (!lastInstructionWasNewObj && Operation.OperationCode == OperationCode.Throw)
                 {
-                    eFlowMethodException = new eFlowMethodException();
+                    eFlowMethodException = new ECSFlowMethodException();
                     //eFlowMethodException.ExceptionReference = new eFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString()));
                     eFlowMethodException.StartOffSet = Operation.Offset.ToString();
                     eFlowMethodException.EndOffSet = Operation.Offset.ToString();
@@ -547,7 +547,7 @@ namespace eFlowDriverNET
 
                     // Register in eFlow Exceptions Types
                     if (eFlowAssembly.Exceptions.FindAll(e => e.Name.Equals(Type.GetType(consRef.ContainingType.ResolvedType.ToString()))).Count == 0)
-                        eFlowAssembly.Exceptions.Add(new eFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString())));
+                        eFlowAssembly.Exceptions.Add(new ECSFlowException(Type.GetType(consRef.ContainingType.ResolvedType.ToString())));
 
                     eFlowMethod.QtdThrow++;
                 }

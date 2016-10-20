@@ -2,6 +2,7 @@
 using Mono.Cecil;
 using Mono.Cecil.Pdb;
 using System;
+using ECSFlowRewriter;
 
 namespace ECSFlow.Helper
 {

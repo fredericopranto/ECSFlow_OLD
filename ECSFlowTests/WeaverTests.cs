@@ -3,50 +3,54 @@ using System.IO;
 using System.Reflection;
 using Mono.Cecil;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ECSFlow;
+using ECSFlowRewriter;
 
-[TestClass]
-public class WeaverTests
+namespace ECSFlowTests
 {
-    Assembly assembly;
-    string newAssemblyPath;
-    string assemblyPath;
 
-    [TestInitialize]
-    public void Setup()
+    [TestClass]
+    public class WeaverTests
     {
-        var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
-        assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
+        Assembly assembly;
+        string newAssemblyPath;
+        string assemblyPath;
 
-        newAssemblyPath = assemblyPath.Replace(".exe", "2.exe");
-        File.Copy(assemblyPath, newAssemblyPath, true);
-
-        var moduleDefinition = ModuleDefinition.ReadModule(newAssemblyPath);
-        var weavingTask = new ModuleWeaver
+        [TestInitialize]
+        public void Setup()
         {
-            ModuleDefinition = moduleDefinition
-        };
+            var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\Ascgen2NoTry\Ascgen2.csproj"));
+            assemblyPath = Path.Combine(Path.GetDirectoryName(projectPath), @"Ascgen2\bin\Debug\Ascgen2.exe");
 
-        weavingTask.Execute();
-        moduleDefinition.Write(newAssemblyPath);
+            newAssemblyPath = assemblyPath.Replace(".exe", "2.exe");
+            File.Copy(assemblyPath, newAssemblyPath, true);
 
-        assembly = Assembly.LoadFile(newAssemblyPath);
-    }
+            var moduleDefinition = ModuleDefinition.ReadModule(newAssemblyPath);
+            var weavingTask = new ModuleWeaver
+            {
+                ModuleDefinition = moduleDefinition
+            };
 
-    [TestMethod]
-    public void eFlowValidateHelloWorldIsInjected()
-    {
-        var type = assembly.GetType("Hello");
-        var instance = (dynamic) Activator.CreateInstance(type);
+            weavingTask.Execute();
+            moduleDefinition.Write(newAssemblyPath);
 
-        Assert.AreEqual("Hello World", instance.World());
-    }
+            assembly = Assembly.LoadFile(newAssemblyPath);
+        }
 
-#if(DEBUG)
-   // [TestMethod]
-    public void eFlowPeVerify()
-    {
-        Verifier.Verify(assemblyPath,newAssemblyPath);
-    }
+        [TestMethod]
+        public void eFlowValidateHelloWorldIsInjected()
+        {
+            var type = assembly.GetType("Hello");
+            var instance = (dynamic)Activator.CreateInstance(type);
+
+            Assert.AreEqual("Hello World", instance.World());
+        }
+
+#if (DEBUG)
+        // [TestMethod]
+        public void eFlowPeVerify()
+        {
+            Verifier.Verify(assemblyPath, newAssemblyPath);
+        }
 #endif
+    }
 }

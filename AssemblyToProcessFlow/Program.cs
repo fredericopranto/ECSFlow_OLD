@@ -1,4 +1,4 @@
-﻿using ECSFlow.Attributes;
+﻿using ECSFlowAttributes;
 using System;
 
 namespace ECSFlow

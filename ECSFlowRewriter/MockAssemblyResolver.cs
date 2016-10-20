@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using Mono.Cecil;
 
-namespace ECSFlow
+namespace ECSFlowRewriter
 {
 
     public class MockAssemblyResolver : IAssemblyResolver

@@ -4,9 +4,8 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
-using ECSFlow.Finder;
 
-namespace ECSFlow
+namespace ECSFlowRewriter
 {
 
     public static class Extensions

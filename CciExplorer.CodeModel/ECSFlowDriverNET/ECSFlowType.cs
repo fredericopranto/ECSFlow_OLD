@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     [XmlRoot("type")]
-    public class eFlowType
+    public class ECSFlowType
     {
         [XmlElement("name")]
         public string Name { get; set; }
@@ -13,10 +13,10 @@ namespace eFlowDriverNET
         [XmlElement("kind")]
         public string Kind { get; set; }
 
-        private readonly List<eFlowMethod> _Methods = new List<eFlowMethod>();
+        private readonly List<ECSFlowMethod> _Methods = new List<ECSFlowMethod>();
 
         [XmlArray("methods")]
         [XmlArrayItem("method")]
-        public List<eFlowMethod> Methods { get { return _Methods; } }
+        public List<ECSFlowMethod> Methods { get { return _Methods; } }
     }
 }

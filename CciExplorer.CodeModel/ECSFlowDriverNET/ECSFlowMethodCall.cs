@@ -1,14 +1,14 @@
 ﻿using System.Xml.Serialization;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     [XmlRoot("methodCall")]
-    public class eFlowMethodCall
+    public class ECSFlowMethodCall
     {
         [XmlElement("methodSource")]
-        public eFlowMethod MethodSource { get; set; }
+        public ECSFlowMethod MethodSource { get; set; }
         [XmlElement("methodTarget")]
-        public eFlowMethod MethodTarget { get; set; }
+        public ECSFlowMethod MethodTarget { get; set; }
         [XmlElement("offSet")]
         public string OffSet { get; set; }
         [XmlElement("order")]

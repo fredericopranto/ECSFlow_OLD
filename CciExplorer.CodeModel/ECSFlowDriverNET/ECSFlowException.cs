@@ -2,19 +2,19 @@
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     [XmlRoot("exception")]
     [DataContract(Name = "exception", Namespace = "")]
-    public class eFlowException
+    public class ECSFlowException
     {
-        public eFlowException(Type ExceptionFinally)
+        public ECSFlowException(Type ExceptionFinally)
         {
             this.BaseName = ExceptionFinally.ToString();
             this.Name = ExceptionFinally.Name;
         }
 
-        public eFlowException()
+        public ECSFlowException()
         {
             // TODO: Complete member initialization
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace ECSFlow.Attributes
+namespace ECSFlowAttributes
 {
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
     public class MethodLogging : Attribute

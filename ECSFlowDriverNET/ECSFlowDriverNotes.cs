@@ -1,14 +1,8 @@
 ﻿using Microsoft.Cci;
-using Microsoft.Cci.Immutable;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
 using System.Xml;
-using System.Xml.Serialization;
-using TourreauGilles.CciExplorer.CSharp;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     /// <summary>
     /// Class for generate exception flow paths
@@ -28,7 +22,7 @@ namespace eFlowDriverNET
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(assemblyLocator);
             DateTime lastModified = fileInfo.LastWriteTime;
 
-            eFlowAssembly eFlowAssembly = new eFlowAssembly();
+            ECSFlowAssembly eFlowAssembly = new ECSFlowAssembly();
             eFlowAssembly.Name = assembly.Name.Value;
             eFlowAssembly.Version = assembly.ModuleIdentity.ContainingAssembly.Version.ToString();
             eFlowAssembly.CreatedAt = lastModified.ToUniversalTime().ToString();

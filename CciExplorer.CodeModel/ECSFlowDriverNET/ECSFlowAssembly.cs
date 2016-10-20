@@ -4,11 +4,11 @@ using Microsoft.Cci;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
-namespace eFlowDriverNET
+namespace ECSFlowDriverNET
 {
     [XmlRoot("assembly")]
     [DataContract(Name = "assembly")]
-    public class eFlowAssembly
+    public class ECSFlowAssembly
     {
         [XmlElement("name")]
         public string Name { get; set; }
@@ -38,24 +38,24 @@ namespace eFlowDriverNET
         [XmlIgnore]
         public IModule Assembly { get; set; }
 
-        private readonly List<eFlowAssembly> _Assemblies = new List<eFlowAssembly>();
-        private readonly List<eFlowException> _Exceptions = new List<eFlowException>();
-        private readonly List<eFlowType> _Types = new List<eFlowType>();
-        private readonly List<eFlowMethodCall> _MethodCalls = new List<eFlowMethodCall>();
+        private readonly List<ECSFlowAssembly> _Assemblies = new List<ECSFlowAssembly>();
+        private readonly List<ECSFlowException> _Exceptions = new List<ECSFlowException>();
+        private readonly List<ECSFlowType> _Types = new List<ECSFlowType>();
+        private readonly List<ECSFlowMethodCall> _MethodCalls = new List<ECSFlowMethodCall>();
 
         [XmlIgnore]
         [XmlArray("assemblies")]
         [XmlArrayItem("assembly")]
-        public List<eFlowAssembly> Assemblies { get { return _Assemblies; } }
+        public List<ECSFlowAssembly> Assemblies { get { return _Assemblies; } }
         [XmlArray("exceptions")]
         [XmlArrayItem("exception")]
-        public List<eFlowException> Exceptions { get { return _Exceptions; } }
+        public List<ECSFlowException> Exceptions { get { return _Exceptions; } }
         [XmlArray("types")]
         [XmlArrayItem("type")]
-        public List<eFlowType> Types { get { return _Types; } }
+        public List<ECSFlowType> Types { get { return _Types; } }
         [XmlArray("methodCalls")]
         [XmlArrayItem("methodCall")]
-        public List<eFlowMethodCall> MethodCalls { get { return _MethodCalls; } }
+        public List<ECSFlowMethodCall> MethodCalls { get { return _MethodCalls; } }
 
         public void RegisterException(string pExeception)
         {
@@ -63,7 +63,7 @@ namespace eFlowDriverNET
             if (!pExeception.Equals("System.Object")) // Validação do Catch não tipado
                 if (this.Exceptions.FindAll(e => e.Name.Equals(pExeception)).Count == 0)
                 {
-                    eFlowException eFlowException = new eFlowException();
+                    ECSFlowException eFlowException = new ECSFlowException();
                     try
                     {
                         eFlowException.Name = Type.GetType(pExeception).ToString();
