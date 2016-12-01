@@ -14,6 +14,7 @@ namespace ECSFlow
         public static void SomeMethod()
         {
             Console.WriteLine("SomeMethod Body");
+            Console.ReadLine();
         }
     }
 }

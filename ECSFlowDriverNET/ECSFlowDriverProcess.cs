@@ -28,7 +28,7 @@ namespace ECSFlowDriverNET
 
             foreach (var app in apps)
             {
-                var projectPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, string.Format(@"..\..\..\{0}\{0}.csproj", app)));
+                var projectPath = @"C:\Users\esig\Downloads\lab_eflow_il\ExtensibleILRewriter\Ascgen2\Ascgen2.csproj"; // Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, string.Format(@"..\..\..\{0}\{0}.csproj", app)));
                 var assemblyPath = Path.GetDirectoryName(projectPath) + string.Format(@"\bin\Debug\{0}.exe",app);
                 var assemblyPathNoTry = Path.GetDirectoryName(projectPath) + string.Format(@"\bin\Debug\{0}2.exe", app);
 
